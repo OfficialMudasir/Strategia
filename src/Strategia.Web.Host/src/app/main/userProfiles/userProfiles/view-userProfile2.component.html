@@ -1,0 +1,1190 @@
+﻿<div [@routerTransition]>
+    <div [class]="containerClass">
+
+        <div class="d-flex flex-column flex-xl-row">
+            <!--begin::Sidebar-->
+            <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mt-10 mb-10">
+
+                <!--begin::Card-->
+                <div class="card mb-xl-8  h-100">
+                    <!--begin::Card body-->
+                     <!--begin::Card body-->
+                     <div *ngIf="!edit" class="card-body ">
+                        <!--begin::Summary-->
+                        <div class="d-flex flex-center flex-column">
+                            <!--begin::Avatar-->
+                            <div class="symbol symbol-100px symbol-circle mb-7">
+                                <!--<img src="https://preview.keenthemes.com/metronic8/demo1/assets/media/avatars/300-1.jpg" alt="image">-->
+                                <img [src]="profilePicture" alt="user" [class]="profileImageCssClass" />
+                            </div>
+                            <!--end::Avatar-->
+                            <!--begin::Name-->
+                            <span class="fs-3 text-gray-900  fw-bold mb-1">
+                                {{userprofile?.userProfile?.profileName}}
+                            </span>
+                            <!--end::Name-->
+                            <!--begin::Position-->
+                            <div class="fs-5 fw-semibold text-muted mb-2">
+                                {{userprofile?.userProfile?.profileRole}}
+                            </div>
+                            <!--end::Position-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-wrap flex-center">
+                                <!--begin::Stats-->
+ 
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <!--end::Summary-->
+                        <!--begin::Details toggle-->
+                        <div class="d-flex flex-stack fs-4 py-3">
+                            <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_customer_view_details" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
+                                <!-- Details
+                                 <span class="ms-2 rotate-180">
+                                    <i class="ki-duotone ki-down fs-3"></i>
+                                </span> -->
+                            </div> 
+                        </div>
+                        <!--end::Details toggle-->
+
+                        <!-- <div class="separator separator-dashed my-3"></div> -->
+
+                        <!--begin::Details content-->
+                        <div id="kt_customer_view_details" class="collapse show">
+                            <div class="py-5 fs-6">
+                                <!--begin::Badge-->
+                                <!-- <div class="badge badge-light-info d-inline">Premium user</div> -->
+                                <!--begin::Badge-->
+                                <!--begin::Details item-->
+
+                              
+
+                                <div class="text-gray-900  mt-3">
+
+                                    <div *ngFor="let telephone of userprofile?.userProfile?.parsedResume?.contactInformation?.telephones">
+                                        <p class="d-flex align-items-center gap-2 fs-4" *ngIf="telephone.subscriberNumber !=null">
+                                            <span class="w-30px">
+                                                <i class="bi bi-telephone fs-2"></i>
+                                            </span>
+                                            
+                                            {{ telephone.internationalCountryCode }} {{ telephone.areaCityCode }} {{ telephone.subscriberNumber }}
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="text-gray-900  mt-3 d-flex align-items-center gap-2 fs-4">
+                                    <span  class="w-30px"><i class="bi bi-currency-dollar fs-2"></i></span>
+                                    {{this.userprofile?.userProfile?.preferredSalaryBandLow.toLocaleString()}} - {{this.userprofile?.userProfile?.preferredSalaryBandHigh.toLocaleString()}} AUD
+                                </div>
+
+                                <!-- <div class="text-gray-900  mt-3 d-flex align-items-center gap-2 fs-4">
+                                    <i class="ki-solid ki-teacher fs-2 w-20px"></i>
+                                     University of Punjab Chandigarh. 
+                                </div> -->
+
+                                <!--begin::Details item-->
+                                <!--begin::Details item-->
+                                <!-- <div class="fw-bold mt-5">Location</div> -->
+
+                                <div class="text-gray-900  mt-3 d-flex align-items-center gap-2 fs-4 fs-4">
+                                    <span class="w-30px"><i class="bi bi-geo-alt fs-2"></i></span>                          
+                                    {{ userprofile?.userProfile?.parsedResume?.contactInformation?.location?.countryCode }}, {{ userprofile?.userProfile?.parsedResume?.contactInformation?.location?.municipality }}
+                                </div>
+                               
+                                <!--begin::Details item-->
+                                <!--begin::Details item-->
+                                <!-- <div class="fw-bold mt-5">Language</div>
+                                <div class="text-gray-900">English</div> -->
+                                <!--begin::Details item-->
+                                <!--begin::Details item-->
+                            </div>
+                        </div>
+                        <!--end::Details content-->
+
+                         <!--begin::Info-->
+                        <div class="d-flex  flex-center gap-3 mb-3 mt-10">
+                            <!--begin::Stats-->
+                            <div class="border border-gray-600 border-solid rounded-4 p-5 w-50">
+                                <div class="text-gray-900 text-uppercase fs-9 ls-2 fs-semibold">{{ l('Profile Score') }}</div>
+                                <div class="fw-bold text-gray-900">
+                                    <span class="fs-2x"> {{userprofile?.userProfile?.score}} % </span>
+
+                                </div>
+                               
+                            </div>
+                            <!--end::Stats-->
+                            <!--begin::Stats-->
+                            <div class="border border-gray-600 border-solid rounded-4 p-5 w-50">
+                                <div class="text-gray-900 text-uppercase fs-9 ls-2 fw-semibold">{{ l('Rating') }}</div>
+                                <div class="fw-bold text-gray-900">
+                                    <span class="fs-2x">{{userprofile?.userProfile?.ranking}}</span> of <span class="w-50px">{{userprofile?.userProfile?.rankingTotal}}</span>
+                                </div>
+                               
+                            </div>
+                            <!--end::Stats-->
+                        </div>
+                        <!--end::Info-->
+                        <!--begin::Edit Profile-->
+                        <div class="d-flex flex-center mt-16">
+                            <span class="w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-original-title="Edit customer details" data-kt-initialized="1">
+                                <a href="javascript:;" (click)="edit= !edit; tabId=2" class="btn  btn-primary fw-bold w-100 fs-5" data-bs-toggle="modal" data-bs-target="#kt_modal_update_customer">
+                                    {{ l('Edit Profile') }}
+                                </a>
+                            </span>
+                        </div>
+                        <!--begin::Edit Profile-->
+                    </div>
+                    <!--end::Card body-->
+                    <!--end::Card body-->
+
+                    <div *ngIf="edit" class="card-body">
+                        <!--begin::Summary-->
+                        <div class="d-flex flex-center flex-column">
+
+                            <div
+                                class="menu menu-column menu-rounded menu-state-bg menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary mb-10">
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=2">
+                                    <!--begin::Inbox-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 2">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-person fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Profile Picture') }}</span>
+                                    </span>
+                                    <!--end::Inbox-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=3">
+                                    <!--begin::Marked-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 3">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-fonts fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Full Name') }}</span>
+                                    </span>
+                                    <!--end::Marked-->
+                                </div>
+                                <!--end::Menu item-->
+                                 <!--begin::Menu item-->
+                                 <div class="menu-item" (click)="tabId=5">
+                                    <!--begin::Draft-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 5">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-telephone fs-2"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Telephones') }}</span>
+                                    </span>
+                                    <!--end::Draft-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=4">
+                                    <!--begin::Draft-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 4">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-geo-alt fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Location') }}</span>
+                                    </span>
+                                    <!--end::Draft-->
+                                </div>
+                                <!--end::Menu item-->
+                               
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=6">
+                                    <!--begin::Draft-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 6">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-envelope fs-2"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Emails') }}</span>
+                                    </span>
+                                    <!--end::Draft-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=7">
+                                    <!--begin::Sent-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 7">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-mortarboard fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Education') }}</span>
+                                    </span>
+                                    <!--end::Sent-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=9">
+                                    <!--begin::Trash-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 9">
+
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-currency-dollar fs-1"></i>
+                                        </span>
+
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Salary') }}</span>
+                                    </span>
+                                    <!--end::Trash-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=10">
+                                    <!--begin::Trash-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 10">
+
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-suitcase-lg fs-2"></i>
+                                        </span>
+
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Industries') }}</span>
+                                    </span>
+                                    <!--end::Trash-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=11">
+                                    <!--begin::Trash-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 11">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-star fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Skills') }}</span>
+                                    </span>
+                                    <!--end::Trash-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=12">
+                                    <!--begin::Trash-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 12">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-clock fs-2"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Employment History') }}</span>
+                                    </span>
+                                    <!--end::Trash-->
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item" (click)="tabId=14">
+                                    <!--begin::Trash-->
+                                    <span class="menu-link text-gray-500" [class.active]="tabId === 14">
+                                        <span class="menu-icon w-30px">
+                                            <i class="bi bi-award fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fw-semibold fs-4">{{ l('Certificates') }}</span>
+                                    </span>
+                                    <!--end::Trash-->
+                                </div>
+                                <!--end::Menu item-->
+
+                            </div>
+
+                            <div class="separator separator-dashed my-3"></div>
+
+                            <span class="w-100" data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                data-bs-original-title="Edit customer details" data-kt-initialized="1">
+                                <a href="javascript:;" (click)="close();" class="btn btn-primary w-100"
+                                   data-bs-toggle="modal">
+                                    {{ l('Close') }}
+                                </a>
+                            </span>
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                </div>
+                <!--end::Card-->
+
+
+
+            </div>
+            <!--end::Sidebar-->
+            <!--begin::Content-->
+            <div class="flex-lg-row-fluid ms-lg-15  mt-10 mb-10">
+                <div class="card h-100 bg-transparent border-0">
+
+                    <!--Overview Start-->
+                    <div *ngIf="tabId==1" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+                                    <div class="fs-5 fw-semibold">
+
+                                        <a href="javascript:;" (click)="tabId=10; edit=true" class="me-4">{{
+                                            l('Industries') }}</a> <i class="fa fa-chevron-right"></i>
+                                        <div class="mb-8 label--height overflow-auto">
+                                            <span *ngFor="let industry of selectedIndustries; let i = index;"
+                                                class="badge badge-pill badge-secondary fs-7 p-3 me-3 mt-3">{{industry.name}}</span>
+                                        </div>
+
+                                        <a href="javascript:;" (click)="tabId=11; edit=true" class="me-4">{{ l('Skills')
+                                            }}</a> <i class="fa fa-chevron-right"></i>
+                                        <div class="mb-8 label--height overflow-auto">
+                                            <span *ngFor="let skill of selectedSkills; let i = index;"
+                                                class="badge badge-pill badge-secondary fs-7 p-3 me-3 mt-3">{{skill}}</span>
+                                        </div>
+
+                                        <a href="javascript:;" (click)="tabId=12; edit=true" class="me-4">{{
+                                            l('Employment History') }}</a> <i class="fa fa-chevron-right"></i>
+                                        <div class="row mb-12 label--height overflow-auto">
+                                            <div *ngFor="let position of userprofile?.userProfile?.parsedResume?.employmentHistory?.positions"
+                                                class="col-md-6 mt-4"
+                                                (click)="createOrEditEmployment(position);$event.stopPropagation();">
+                                                <div class="badge badge-pill badge-secondary w-100 p-5 lh-lg white-inherit"
+                                                    style="text-align: left;">
+                                                    <!--begin::Block-->
+                                                    <div class="d-flex align-items-center flex-grow-1">
+                                                        <!--begin::Symbol-->
+                                                        <div class="symbol symbol-40px me-4 ">
+                                                            <span class="symbol-label">
+                                                                <i class="bi bi-suitcase-lg fs-2 text-black"></i>
+                                                            </span>
+                                                        </div>
+                                                        <!--end::Symbol-->
+                                                        <!--begin::Section-->
+                                                        <div class="" style="text-align: left;">
+                                                            <div
+                                                                class="text-gray-900 text-hover-primary fs-6  ellipss-one-line">
+                                                                {{position?.jobTitle?.normalized}}</div>
+                                                            <div class="text-gray-500  d-block fs-7  ">
+                                                                {{position?.employer?.name?.normalized }}
+                                                            </div>
+                                                            <div class="text-gray-900 fs-7 fw-normal d-flex gap-1 align-items-center">
+                                                                <span class="symbol symbol-25px lh-1  me-1">
+                                                                    <span class="">
+                                                                        <i class="bi bi-calendar4 fs-4 text-white"></i>
+                                                                    </span>
+                                                                </span>
+                                                                {{getMonthName(position?.startDate?.date?.month, position?.startDate?.date?.year) }} {{ position?.startDate?.date?.year }} {{ l('To') }} {{getMonthName(position?.endDate?.date?.month, position?.endDate?.date?.year) }} {{getEndYear(position?.endDate?.date?.year) }}
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Section-->
+                                                    </div>
+                                                    <!--end::Block-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <a href="javascript:;" (click)="tabId=14; edit=true" class="me-4">{{
+                                            l('Certificates') }}</a> <i class="fa fa-chevron-right"></i>
+                                        <div class="row mb-12 label--height overflow-auto">
+                                            <div *ngFor="let certificate of selectedCertificates" class="col-md-6 mt-4"
+                                                (click)="createOrEditCertificate(certificate);$event.stopPropagation();">
+                                                <div class="badge badge-pill badge-secondary w-100  p-5  lh-lg white-inherit"
+                                                    style="text-align: left;">
+                                                    <!--begin::Block-->
+                                                    <div class="d-flex align-items-center flex-grow-1">
+                                                        <!--begin::Symbol-->
+                                                        <div class="symbol symbol-40px me-4 ">
+                                                            <span class="symbol-label">
+                                                                <i class="bi bi-award fs-2 text-black"></i>                                                                    
+                                                            </span>
+                                                        </div>
+                                                        <!--end::Symbol-->
+                                                        <!--begin::Section-->
+                                                        <div style="text-align: left;">
+                                                            <div
+                                                                class="text-gray-900 text-hover-primary fs-6 ellipss-one-line">
+                                                                {{ certificate.name }}</div>
+                                                            <div class="text-gray-500  d-block fs-7 ">
+                                                                {{ certificate.issuer }}
+                                                            </div>
+                                                            <div
+                                                                class="text-gray-900 fs-7 fw-normal d-flex gap-1 align-items-center">
+                                                                <span class="symbol symbol-25px lh-1 me-1">
+                                                                    <span class="">
+                                                                        <i class="bi bi-calendar4 fs-4 text-white"></i>
+                                                                    </span>
+                                                                </span>
+                                                                {{ certificate.date }}
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Section-->
+                                                    </div>
+                                                    <!--end::Block-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <label class="me-4">{{ l('Recommendations') }}</label> <i
+                                            class="fa fa-chevron-right"></i>
+                                        <div class="row">
+                                            <div class="col-md-12 mt-4 label--height overflow-auto"
+                                                [innerHTML]="transformText(userprofile?.userProfile?.chatGPTRecommendation)">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Overview End-->
+                    <!--Profile Picture Start-->
+                    <div *ngIf="tabId==2" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+                                    <div class="fs-5 fw-semibold">
+                                        <changeProfilePicture #changeprofilepicture></changeProfilePicture>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Profile Picture End-->
+                    <!--Fullname Start-->
+                    <div *ngIf="tabId==3" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+                                    <div class="fs-5 fw-semibold">
+
+                                        <div class="modal-header mb-6 pb-5">
+                                            <h2 for="candidateName" class="">{{ l('Full Name and Role') }}</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="municipality">{{ l('Full Name') }}</label>
+                                            <input type="text" class="form-control mb-4" id="candidateName"
+                                                [(ngModel)]="userprofile.userProfile.profileName">
+                                            <label for="municipality">{{ l('Role') }}</label>
+                                            <input type="text" class="form-control mb-4" id="candidateRole"
+                                                [(ngModel)]="userprofile.userProfile.profileRole">
+
+
+                                            <label for="candidateBio">{{ l('Bio') }}</label>
+                                            <textarea rows="10" class="form-control mb-4" id="candidateBio"
+                                                [(ngModel)]="userprofile.userProfile.profileDescription"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fullname   End-->
+                    <!--Location Start-->
+                    <div *ngIf="tabId==4" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+                                    <div class="fs-5 fw-semibold">
+                                        <div class="modal-header mb-6 pb-5">
+                                            <h2 class="">{{ l('Location') }}</h2>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <label for="municipality">{{ l('Municipality') }}</label>
+                                            <input type="text" id="municipality" class="form-control mb-4"
+                                                [(ngModel)]="userprofile.userProfile.parsedResume.contactInformation.location.municipality" />
+
+                                            <label for="countryCode">{{ l('Country Code') }}</label>
+                                            <input type="text" id="countryCode" class="form-control mb-4"
+                                                [(ngModel)]="userprofile.userProfile.parsedResume.contactInformation.location.countryCode" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Location End-->
+                    <!--Telephone Start-->
+                    <div *ngIf="tabId==5" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+                                    <div class="modal-header mb-6 pb-5">
+                                        <h2>{{ l('Telephone Numbers') }}</h2>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-6">
+                                            <a href="javascript:;" class="me-2 cursor-pointer d-flex align-items-center gap-2 fw-bold"
+                                               (click)="addNewPhone();$event.stopPropagation();">
+                                               <span class="">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M12 8V16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8 12H16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </span>
+                                                {{ l('Add Phone') }}
+                                            </a>
+                                        </div>
+
+
+                                        <ng-container *ngIf="userprofile.userProfile?.parsedResume?.contactInformation?.telephones && userprofile.userProfile?.parsedResume?.contactInformation?.telephones?.length > 0">
+                                            <ng-container *ngFor="let telephone of userprofile.userProfile?.parsedResume?.contactInformation?.telephones; let i = index;">
+                                                <div class="row mb-4">
+                                                    <!-- International Country Code -->
+                                                    <div class="col-3">
+                                                        <label for="countryCode-{{i}}">{{ l('Country Code') }}</label>
+                                                        <input type="text" id="countryCode-{{i}}" class="form-control"
+                                                               [(ngModel)]="userprofile.userProfile.parsedResume.contactInformation.telephones[i].internationalCountryCode" />
+                                                    </div>
+
+                                                    <!-- Area/City Code -->
+                                                    <div class="col-3">
+                                                        <label for="cityCode-{{i}}">{{ l('City Code') }}</label>
+                                                        <input type="text" id="cityCode-{{i}}" class="form-control"
+                                                               [(ngModel)]="userprofile.userProfile.parsedResume.contactInformation.telephones[i].areaCityCode" />
+                                                    </div>
+
+                                                    <!-- Subscriber Number -->
+                                                    <div class="col-5">
+                                                        <label for="subscriberNumber-{{i}}">{{ l('Number') }}</label>
+                                                        <input type="text" id="subscriberNumber-{{i}}"
+                                                               class="form-control"
+                                                               [(ngModel)]="userprofile.userProfile.parsedResume.contactInformation.telephones[i].subscriberNumber" />
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <button class="close-btn"
+                                                                (click)="removePhone($event,i)" value="i">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Telephone End-->
+                    <!--Emails Start-->
+                    <div *ngIf="tabId==6" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+                                    <div class="modal-header mb-6 pb-5">
+                                        <h2 class="">{{ l('Email Addreses') }}</h2>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-6">
+                                            <a href="javascript:;" class="me-2 cursor-pointer d-flex align-items-center gap-2 fw-bold"
+                                               (click)="addNewEmailAddress();$event.stopPropagation();">
+                                               <span class="">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M12 8V16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8 12H16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </span>
+                                                {{ l('Add Email') }}
+                                            </a>
+                                        </div>
+
+                                        <ng-container
+                                            *ngIf="userprofile.userProfile?.parsedResume?.contactInformation?.emailAddresses && userprofile.userProfile?.parsedResume?.contactInformation?.emailAddresses?.length > 0">
+                                            <ng-container
+                                                *ngFor="let email of userprofile.userProfile?.parsedResume?.contactInformation?.emailAddresses; let i = index; trackBy: trackByFn">
+                                                <div class="position-relative">
+                                                    <input type="text" id="email-{{i}}" class="form-control mb-4"
+                                                        [(ngModel)]="userprofile.userProfile.parsedResume.contactInformation.emailAddresses[i]" />
+                                                    <button class="close-btn mt10 close-btn-new right30"
+                                                        (click)="removeEmailAddress($event,i)" value="i"><i
+                                                            class="fas fa-times"></i></button>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Telephone End-->
+                    <!--Education Start-->
+                    <div *ngIf="tabId==7" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class="modal-header mb-6 pb-5">
+                                    <h2 class="">{{ l('Education History') }}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <a href="javascript:;" class="me-2 mb-4 d-flex align-items-center fw-bold gap-2 cursor-pointer"
+                                        (click)="CreateOrEditEducation(userprofile, null);$event.stopPropagation();">
+                                        <span class="">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 8V16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 12H16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                        {{ l('Add Education History') }}
+                                    </a>
+                                    <div class="timeline-label mb-12 mt-6">
+                                        <!--begin::Item-->
+                                        <div *ngFor="let education of userprofile?.userProfile?.parsedResume?.education?.educationDetails"
+                                            (click)="CreateOrEditEducation(userprofile, education);$event.stopPropagation();"
+                                            class="timeline-item">
+                                            <!--begin::Label-->
+                                            <div class="timeline-label fw-bold text-gray-800 fs-6">
+                                                {{education?.endDate?.date.year }}</div>
+                                            <!--end::Label-->
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-primary fs-1"></i>
+                                            </div>
+                                            <!--end::Badge-->
+                                            <!--begin::Desc-->
+                                            <div class="timeline-content fw-semibold text-gray-800 ps-3">
+                                                <div class="fs-4">{{education?.degree?.type}}:
+                                                    {{education?.schoolName?.normalized }}</div>
+                                                <!--<div>
+                                                    <span *ngFor="let major of education.majors; let i = index" class="badge  badge-pill badge-success me-3 mt-1">
+                                                        {{major}}
+                                                    </span>
+                                                </div>-->
+                                                <div class="mb-3  text-muted display-label--height overflow-auto ">
+                                                    {{education?.text}}
+                                                </div>
+                                                <div>
+                                                    <a href="javascript:;"
+                                                        class="btn btn-sm rounded btn-secondary me-2 mb-2"
+                                                        (click)="deleteEducationDetails(education);$event.stopPropagation();">delete</a>
+                                                    <a href="javascript:;"
+                                                        class="btn btn-sm rounded btn-secondary me-2 mb-2 ">edit</a>
+                                                </div>
+                                            </div>
+                                            <!--end::Desc-->
+                                        </div>
+                                        <!--end::Item-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Education Edit Start-->
+                    <div *ngIf="tabId==8" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class=" ">
+
+                                    <div class="fs-5 fw-semibold">
+
+                                        <div class="mb-3">
+                                            <label for="institution" class="form-label text-dark fw-bold">{{l('Institution') }}</label>
+                                            <input type="text" id="institution" class="form-control"
+                                                [(ngModel)]="selectedEducation.schoolName.normalized"
+                                                placeholder="Enter institution name" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="qualification" class="form-label text-dark fw-bold">{{ l('Course or Qualification') }}</label>
+                                            <input type="text" id="qualification" class="form-control"
+                                                [(ngModel)]="selectedEducation.degree.type"
+                                                placeholder="Enter course or qualification" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="finishedYear" class="form-label text-dark fw-bold">{{
+                                                l('Finished') }}</label>
+                                            <select id="finishedYear" [ngModel]="selectedEducation.endDate.date.year"
+                                                (ngModelChange)="onEducationEndYearChange(selectedEducation, $event)"
+                                                class="form-select">
+                                                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                                            </select>
+                                        </div>
+
+                                        <!--<div class="mb-3">
+                                            <div class="d-flex flex-wrap">
+                                                <span *ngFor="let major of selectedEducation.majors; let i = index" class="badge badge badge-pill badge-success   me-3 mt-3 mb-3">
+                                                    {{major}}
+                                                </span>
+                                            </div>
+                                        </div>-->
+
+                                        <div class="mb-3">
+                                            <label for="description"
+                                                   class="form-label text-dark fw-bold">{{ l('Description') }}</label>
+                                            <textarea id="description" rows="10" class="form-control"
+                                                [(ngModel)]="selectedEducation.text"
+                                                placeholder="Enter description"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Education Edit End-->
+                    <!--Education End-->
+                    <!--Salary Start-->
+                    <div *ngIf="tabId==9" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+
+                                <div class="modal-header mb-6 pb-5">
+                                    <h2 class="">{{ l('Salary') }}</h2>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <label for="currentSalaryLow" class="form-label"> {{ l('Current From')
+                                                }}</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2">{{ l('AUD') }}</span>
+                                                <input type="number" style="max-width:175px" id="currentSalaryLow"
+                                                    (ngModelChange)="onSalaryChange($event,'currentSalaryBandLow')"
+                                                    class="form-control"
+                                                    [(ngModel)]="this.userprofile.userProfile.currentSalaryBandLow"
+                                                    placeholder="Select current Salary Band (low)">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="currentSalaryHigh" class="form-label">{{ l('To') }}</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon3">{{ l('AUD') }}</span>
+                                                <input type="number" style="max-width:175px" id="currentSalaryHigh"
+                                                    (ngModelChange)="onSalaryChange($event,'currentSalaryBandHigh')"
+                                                    class="form-control"
+                                                    [(ngModel)]="this.userprofile.userProfile.currentSalaryBandHigh"
+                                                    placeholder="Select current Salary Band (high)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-12 mb-8" />
+
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <label for="desiredSalaryLow" class="form-label"> {{ l('Preferred From')
+                                                }}</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2">{{ l('AUD') }}</span>
+                                                <input type="number" style="max-width:175px" id="desiredSalaryLow"
+                                                    (ngModelChange)="onSalaryChange($event,'preferredSalaryBandLow')"
+                                                    class="form-control"
+                                                    [(ngModel)]="this.userprofile.userProfile.preferredSalaryBandLow"
+                                                    placeholder="Select desired Salary Band (low)">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="desiredSalaryHigh" class="form-label">{{ l('To') }}</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon3">{{ l('AUD') }}</span>
+                                                <input type="number" style="max-width:175px" id="desiredSalaryHigh"
+                                                    (ngModelChange)="onSalaryChange($event,'preferredSalaryBandHigh')"
+                                                    class="form-control"
+                                                    [(ngModel)]="this.userprofile.userProfile.preferredSalaryBandHigh"
+                                                    placeholder="Select desired Salary Band (high)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Salary End-->
+                    <!--Industries Start-->
+                    <div *ngIf="tabId==10" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+
+                                <div class="modal-header mb-6 pb-5">
+                                    <h2 class="">{{ l('Industries') }}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">{{ l('Add Current Industry')
+                                        }}</div>
+                                    <p-dropdown (onChange)="onIndustrySelect($event)" [options]="industries"
+                                        optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                                        placeholder="{{ l('Select a current Industry') }}"></p-dropdown>
+                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">{{ l('Current Industries') }}
+                                    </div>
+                                    <span (click)="removeSelectedIndustry(i);"
+                                        *ngFor="let industry of selectedIndustries; let i = index;"
+                                        class="badge badge-lg badge-pill badge-secondary  p-3 me-3 mt-3">{{industry.name}}
+                                        <i class="fa fa-minus ms-2 fa-bold"></i> </span>
+
+                                    <hr class="mt-12 mb-8" />
+
+                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">{{ l('Add Preferred Industry') }}</div>
+                                    <p-dropdown (onChange)="onPreferredIndustrySelect($event)" [options]="industries"
+                                        optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                                        placeholder="{{ l('Select a preferred Industry') }}"></p-dropdown>
+                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">{{ l('Preferred Industries')
+                                        }}</div>
+                                    <span (click)="removeSelectedPreferredIndustry(i);"
+                                        *ngFor="let industry of preferredIndustries; let i = index;"
+                                        class="badge badge-lg badge-pill badge-secondary  p-3 me-3 mt-3">{{industry.name}}
+                                        <i class="fa fa-minus ms-2 fa-bold"></i> </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Industries End-->
+                    <!--Skills Start-->
+                    <div *ngIf="tabId==11" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class="modal-header mb-6 pb-5">
+                                    <h2 class="">{{ l('Skills') }}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="align-items-center mb-2">
+                                        <div class="fs-6 fw-bold me-1">{{ l('Add Skills') }}</div>
+                                        <!--<div class="fs-6 fw-bold me-1">Help employers find you by showcasing all of your skills.</div>-->
+                                    </div>
+
+                                    <p-dropdown (onChange)="onSkillSelect($event)" [options]="skills" optionLabel="name"
+                                        [filter]="true" filterBy="name" [showClear]="true"
+                                        placeholder="{{ l('Select a Skill') }}"></p-dropdown>
+
+                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">Suggested skills based on
+                                        your career history</div>
+                                    <span (click)="addSkill(skill?.name); removeSkill(i);"
+                                        *ngFor="let skill of userprofile?.userProfile?.parsedResume?.skills?.raw; let i = index;"
+                                        class="badge badge-lg badge-pill badge-secondary badge-hover p-3 me-3 mt-3">{{skill?.name}}
+                                        <i class="fa fa-plus ms-2 fa-bold"></i> </span>
+
+                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">{{ l('Your Skills') }}</div>
+                                    <span (click)="removeSelectedSkill(i);"
+                                        *ngFor="let skill of selectedSkills; let i = index;"
+                                        class="badge badge-lg badge-pill badge-secondary  p-3 me-3 mt-3">{{skill}} <i
+                                            class="fa fa-minus ms-2 fa-bold"></i> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Skills End-->
+                    <!--Work Start-->
+                    <div *ngIf="tabId==12" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+                                <div class="modal-header mb-6 pb-5">
+                                    <h2 class="">{{ l('Work History') }}</h2>
+                                </div>
+                                <div class="modal-body">
+
+                                    <a href="javascript:;" class="me-2 mb-4 cursor-pointer d-flex align-items-center gap-2 fw-bold"
+                                        (click)="createOrEditEmployment(null);$event.stopPropagation();">
+                                        <span class="">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 8V16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 12H16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                        {{ l('Add Employment History') }}
+                                    </a>
+
+                                    <div class="timeline-label mb-12 mt-6">
+                                        <!--begin::Item-->
+                                        <div *ngFor="let position of userprofile?.userProfile?.parsedResume?.employmentHistory?.positions"
+                                            (click)="createOrEditEmployment(position);$event.stopPropagation();"
+                                            class="timeline-item">
+                                            <!--begin::Label-->
+                                            <div class="timeline-label fw-bold text-gray-800 fs-6">
+                                                <div>{{getMonthName(position?.startDate?.date?.month, position?.startDate?.date?.year) }} {{position?.startDate?.date?.year }}</div> 
+                                                to 
+                                                <div>{{getMonthName(position?.startDate?.date?.month, position?.endDate?.date?.year) }} {{ getEndYear(position?.endDate?.date?.year)}} </div>
+                                            </div>
+                                            <!--end::Label-->
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-primary fs-1"></i>
+                                            </div>
+                                            <!--end::Badge-->
+                                            <!--begin::Desc-->
+                                            <div class="timeline-content fw-semibold text-gray-800 ps-3">
+                                                <div class="fs-4">{{ position?.employer?.name?.normalized }}</div>
+
+                                                <div>
+                                                    <span class="">
+                                                        {{position?.employer?.location?.municipality}}
+                                                    </span>, <span
+                                                        class="">{{position?.employer?.location?.countryCode}}</span>.
+                                                    <span class="">{{position?.jobTitle?.normalized}}</span> - <span
+                                                        class="">
+                                                        {{position?.jobLevel}}
+                                                    </span>
+                                                </div>
+                                                <div class="mb-3 text-muted display-label--height overflow-auto ">
+                                                    {{ position.description}}
+                                                </div>
+                                                <div>
+                                                    <a href="javascript:;"
+                                                        class="btn btn-sm rounded btn-secondary me-2 mb-2"
+                                                        (click)="deleteEmployment(position);$event.stopPropagation();">delete</a>
+                                                    <a href="javascript:;"
+                                                        class="btn btn-sm rounded btn-secondary me-2 mb-2"
+                                                        (click)="createOrEditEmployment(position);$event.stopPropagation();">edit</a>
+                                                </div>
+                                            </div>
+                                            <!--end::Desc-->
+                                        </div>
+                                        <!--end::Item-->
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Employment Edit Start-->
+                    <div *ngIf="tabId==13" class="card-body p-0">
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid">
+
+                                <div class=" ">
+                                    <div class="fs-5 fw-semibold">
+
+                                        <!--begin::Content-->
+                                        <div class="mb-3">
+                                            <label for="institution" class="form-label text-dark fw-bold">{{l('Employer') }}</label>
+                                            <input type="text" id="institution" class="form-control"
+                                                [(ngModel)]="selectedPosition.employer.name.normalized"
+                                                placeholder="Enter Employer name" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="location" class="form-label text-dark fw-bold">{{ l('Location')
+                                                }}</label>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-1">
+                                                    <input type="text" id="country" class="form-control"
+                                                        [(ngModel)]="selectedPosition.employer.location.countryCode"
+                                                        placeholder="Enter country" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="region" class="form-control"
+                                                        [(ngModel)]="selectedPosition.employer.location.municipality"
+                                                        placeholder="Enter region" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="institution" class="form-label text-dark fw-bold">{{ l('Job level') }}</label>
+                                            <input type="text" id="institution" class="form-control"
+                                                [(ngModel)]="selectedPosition.jobLevel" placeholder="Enter Job level" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="jobtitle" class="form-label text-dark fw-bold">{{ l('Job Title')
+                                                }}</label>
+                                            <input type="text" id="jobtitle" class="form-control"
+                                                [(ngModel)]="selectedPosition.jobTitle.normalized"
+                                                placeholder="Enter Job Title" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-1">
+                                                    <div class="row">
+                                                        <label for="startYear"
+                                                               class="col-12 col-form-label text-dark fw-bold">{{ l('From') }}</label>
+                                                        <div class="col-12 d-flex justify-content-between">
+                                                            <select id="startMonth"
+                                                                    [ngModel]="selectedPosition?.startDate?.date?.month"
+                                                                    (ngModelChange)="onStartMonthChange(selectedPosition, $event)"
+                                                                    class="form-select me-1 flex-fill">
+                                                                <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+                                                            </select>
+
+                                                            <select id="startYear"
+                                                                    [ngModel]="selectedPosition?.startDate?.date?.year"
+                                                                    (ngModelChange)="onStartYearChange(selectedPosition, $event)"
+                                                                    class="form-select ms-1 flex-fill">
+                                                                <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <label for="endYear"
+                                                            class="col-12 col-form-label text-dark fw-bold">To</label>
+                                                        <div class="col-12 d-flex justify-content-between">
+                                                            <select *ngIf="selectedPosition?.endDate?.date?.year != 2100" id="startMonth"
+                                                                    [ngModel]="selectedPosition?.endDate?.date?.month"
+                                                                    (ngModelChange)="onEndMonthChange(selectedPosition, $event)"
+                                                                    class="form-select me-1 flex-fill">
+                                                                <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+                                                            </select>
+                                                            <select id="endYear"
+                                                                    [ngModel]="selectedPosition?.endDate?.date?.year"
+                                                                    (ngModelChange)="onEndYearChange(selectedPosition, $event)"
+                                                                    class="form-select me-1 flex-fill">
+                                                                <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                                                                <option [value]="2100">Present</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label text-dark fw-bold">{{l('Description') }}</label>
+                                            <textarea id="description" rows="10" class="form-control"
+                                                [(ngModel)]="selectedPosition.description"
+                                                placeholder="Enter description"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Employment Edit End-->
+                    <!--Work End-->
+                    <!--Certificates Start-->
+                    <div *ngIf="tabId==14" class="card-body p-0">
+
+                        <div class="d-flex flex-column flex-xl-row">
+                            <div class="flex-lg-row-fluid row">
+
+                                <div class="modal-header mb-6 pb-5">
+                                    <h2 class="">{{l('Certificates')}}</h2>
+                                </div>
+
+                                <div class="modal-body row">
+                                    <a *ngIf="editCert==false" href="javascript:;" class="me-2 mb-8 cursor-pointer d-flex gap-2 align-items-center fw-bold"
+                                        (click)="createOrEditCertificate(null);$event.stopPropagation();">
+                                        <span class="">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 8V16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 12H16" stroke="#FFFF54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                        {{ l('Add Certificate') }}
+                                    </a>
+
+                                    <div *ngFor="let certificate of selectedCertificates"
+                                        (click)="createOrEditCertificate(certificate);$event.stopPropagation();"
+                                        class="d-flex mb-6 col-md-6 ">
+
+                                        <!--begin::Block-->
+                                        <div class="badge badge-pill badge-secondary w-100 p-5 white-inherit"
+                                            style="text-align: left;">
+                                            <div class="d-flex align-items-center flex-grow-1 me-2 me-sm-5 pe-3">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-40px me-4 ">
+                                                    <span class="symbol-label">
+                                                       <i class="bi bi-suitcase-lg fs-2 text-black"></i>                                                            
+                                                    </span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Section-->
+                                                <div class="me-2 lh-lg">
+                                                    <a href="javscript:;"
+                                                        class="text-gray-900 text-hover-primary fs-6 ellipss-one-line"
+                                                        contenteditable="false" style="cursor: pointer;">{{certificate.name }}</a>
+
+                                                    <span class="text-gray-500  d-block fs-7">{{certificate.issuer }}</span>
+
+                                                    <span class="text-gray-900 fs-7 fw-normal d-flex gap-1 align-items-center">
+                                                        <span class="symbol symbol-25px  lh-1">
+                                                            <span class="">
+                                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M14.25 3H3.75C2.92157 3 2.25 3.67157 2.25 4.5V15C2.25 15.8284 2.92157 16.5 3.75 16.5H14.25C15.0784 16.5 15.75 15.8284 15.75 15V4.5C15.75 3.67157 15.0784 3 14.25 3Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M12 1.5V4.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M6 1.5V4.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M2.25 7.5H15.75" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                </svg>     
+                                                            </span>
+                                                        </span>
+                                                        {{ certificate.date }}
+                                                    </span>
+
+                                                </div>
+                                                <!--end::Section-->
+                                            </div>
+                                            <!--end::Block-->
+                                            <!--begin::Info-->
+                                            <div class="d-flex align-items-center">
+                                                <a href="javascript:;" class="me-2 cursor-pointer pull-right"
+                                                    (click)="deleteCertificate(certificate);$event.stopPropagation();">
+                                                    {{ l('Delete') }}
+                                                </a>
+                                            </div>
+                                            <!--end::Info-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="tabId==15" class="card-body p-0">
+
+                        <input type="hidden" [(ngModel)]="selectedCertificate.id" class="form-control"
+                            id="certificateId">
+
+                        <div class="fs-5 mt-4 fw-semibold">
+                            <label for="candidateName" class="form-label">{{ l('Date') }}</label>
+                            <input type="date" [(ngModel)]="selectedCertificate.date" class="form-control"
+                                id="certificateDate">
+                        </div>
+
+                        <div class="fs-5 mt-4  fw-semibold">
+                            <label for="candidateName" class="form-label">{{ l('Certificate') }} {{ l('Name') }}</label>
+                            <input type="text" [(ngModel)]="selectedCertificate.name" class="form-control"
+                                id="certificateName">
+                        </div>
+
+                        <div class="fs-5 mt-4  fw-semibold">
+                            <label for="candidateName" class="form-label">{{ l('Certificate Issuer') }} </label>
+                            <input type="text" [(ngModel)]="selectedCertificate.issuer" class="form-control"
+                                id="certificateIssuer">
+                        </div>
+
+                        <div class="fs-5 mt-4  fw-semibold">
+                            <label class="form-label" for="UserProfile_Resume">{{ l('Certificate attachments')
+                                }}</label>
+                            <app-files [fileId]="selectedCertificate.id"></app-files>
+                        </div>
+
+                        <div class="fs-5 mt-4  fw-semibold">
+
+                            <p-fileUpload class="custom-file-upload" id="DefaultFileUploadFileInput"
+                                name="DefaultFileUploadFileInput[]" accept=".doc,.docx,.pdf" maxFileSize="1000000"
+                                [auto]="false" (onSelect)="handleFileInput($event)">
+                                <ng-template pTemplate="content">
+                                    <div *ngIf="uploadedFiles.length">
+                                        {{ uploadedFiles[0].name }} - {{ uploadedFiles[0].size }} bytes
+                                    </div>
+                                </ng-template>
+                            </p-fileUpload>
+                        </div>
+
+
+                    </div>
+                    <!--Certificates End-->
+
+                    <div *ngIf="edit" class="card-body p-0 mb-8">
+                        <div *ngIf="tabId!=7 && tabId!=12 && tabId!=14">
+                            <button type="button" class="btn btn-outline btn-outline-primary fw-bold w-175px" (click)="selectPrevTab()"
+                                [disabled]="saving">
+                                {{ 'Cancel' | localize }}
+                            </button>
+                            <button type="button" (click)="save();" class="btn btn-primary fw-bold  w-175px">
+                                <!--[disabled]="!changeProfilePictureModalForm.form.valid || saving">-->
+                                <!--<i class="fa fa-save"></i>-->
+                                <span>{{ 'Save' | localize }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Content-->
+        </div>
+    </div>
+</div>

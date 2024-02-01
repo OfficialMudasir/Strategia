@@ -1,0 +1,9 @@
+﻿using Strategia.Security;
+
+namespace Strategia.Authorization.Users.Profile.Dto
+{
+    public class GetPasswordComplexitySettingOutput
+    {
+        public PasswordComplexitySetting Setting { get; set; }
+    }
+}

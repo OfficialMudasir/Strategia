@@ -1,0 +1,195 @@
+﻿<div
+  bsModal
+  #createOrEditModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createOrEditModal"
+  aria-hidden="true"
+  [config]="{ backdrop: 'static' }"
+>
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <form *ngIf="active" #courseForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+              <div class="modal-header">
+                  <h4 class="modal-title">
+                      <span *ngIf="course.id">{{ l('EditCourse') }}</span>
+                      <span *ngIf="!course.id">{{ l('CreateNewCourse') }}</span>
+                  </h4>
+
+                  <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+              </div>
+              <div class="modal-body">
+
+                  <tabset>
+                      <tab heading="{{ l('Course') }}">
+                          <div class="my-3">
+                              <label class="form-label" for="Course_Name">{{ l('Name') }}</label>
+                              <input type="text"
+                                     #Course_Name="ngModel"
+                                     id="Course_Name"
+                                     class="form-control"
+                                     [(ngModel)]="course.name"
+                                     name="Name"
+                                     minlength="0"
+                                     maxlength="256" />
+                              <validation-messages [formCtrl]="Course_Name"></validation-messages>
+                          </div>
+
+                          <div class="my-3">
+                              <label class="form-label" for="Course_Description">{{ l('Description') }}</label>
+                              <textarea rows="10"
+                                        type="text"
+                                        #Course_Description="ngModel"
+                                        id="Course_Description"
+                                        class="form-control"
+                                        [(ngModel)]="course.description"
+                                        name="Description"
+                                        minlength="0"
+                                        maxlength="2048"></textarea>
+                              <validation-messages [formCtrl]="Course_Description"></validation-messages>
+                          </div>
+
+                          <div class="my-3">
+                              <label class="form-label" for="Course_TitleVideo">{{ l('TitleVideo') }}</label>
+                              <input type="text"
+                                     #Course_TitleVideo="ngModel"
+                                     id="Course_TitleVideo"
+                                     class="form-control"
+                                     [(ngModel)]="course.titleVideo"
+                                     name="TitleVideo"
+                                     minlength="0"
+                                     maxlength="256" />
+                              <validation-messages [formCtrl]="Course_TitleVideo"></validation-messages>
+                          </div>
+
+                          <div class="my-3">
+                              <label class="form-label" for="Course_TitleImage">{{ l('TitleImage') }}</label>
+                              <input type="text"
+                                     #Course_TitleImage="ngModel"
+                                     id="Course_TitleImage"
+                                     class="form-control"
+                                     [(ngModel)]="course.titleImage"
+                                     name="TitleImage"
+                                     minlength="0"
+                                     maxlength="256" />
+                              <validation-messages [formCtrl]="Course_TitleImage"></validation-messages>
+                          </div>
+
+                          <!--<div class="my-3">
+                              <label class="form-label" for="skills_overview">Skills Overview</label>
+                              <ckeditor [editor]="skillsOverviewEditor" [data]="skillsOverviewEditorDisplayData" dir="ltr" (change)="onChangeSkillOverview($event)" [config]="editorConfig" id="skills_overview" class="form-control"></ckeditor>
+                          </div>
+
+                          <div class="my-3">
+                              <label class="form-label" for="editor-container">Skills Description</label>
+                              <ckeditor [editor]="skillsDescriptionEditor" [data]="skillsDescriptionEditorDisplayData" dir="ltr" (change)="onChangeSkillDescription($event)" [config]="editorConfig1" id="skills_description" class="form-control"></ckeditor>
+                          </div>-->
+
+
+                      </tab>
+                      <tab heading="{{ l('Author') }}">
+
+                          <div class="my-3">
+                              <label class="form-label" for="Course_Name">{{ l('AuthorName') }}</label>
+                              <input type="text"
+                                     #Course_AuthorName="ngModel"
+                                     id="Course_AuthorName"
+                                     class="form-control"
+                                     [(ngModel)]="course.authorName"
+                                     name="AuthorName"
+                                     minlength="0"
+                                     maxlength="256" />
+                              <validation-messages [formCtrl]="Course_AuthorName"></validation-messages>
+                          </div>
+
+                          <div class="my-3">
+                              <label class="form-label" for="Course_Description">{{ l('AuthorDescription') }}</label>
+                              <textarea type="text"
+                                        rows="12"
+                                        #Course_AuthorDescription="ngModel"
+                                        id="Course_AuthorDescription"
+                                        class="form-control"
+                                        [(ngModel)]="course.authorDescription"
+                                        name="AuthorDescription"
+                                        minlength="0"
+                                        maxlength="4096"></textarea>
+                              <validation-messages [formCtrl]="Course_AuthorDescription"></validation-messages>
+                          </div>
+
+                              <input type="hidden"
+                                     #Course_AuthorName="ngModel"
+                                     id="Course_AuthorProfilePictureId"
+                                     class="form-control"
+                                     [(ngModel)]="course.authorProfilePictureId"
+                                     name="AuthorProfilePictureId" />
+
+                              <form #changeProfilePictureModalForm="ngForm" (ngSubmit)="save()">
+ 
+                                  <label class="form-label" for="Course_Description">{{ 'AuthorProfilePicture' | localize }}</label>
+
+                                  <div class="mb-5">
+                                      <div class="input-group">
+                                          <div class="custom-file">
+                                              <input type="file"
+                                                     id="uploadProfilePicture"
+                                                     (change)="fileChangeEvent($event)" />
+                                              <label class="custom-file-label"
+                                                     #uploadProfilePictureInputLabel
+                                                     for="uploadProfilePicture">
+                                                  {{ 'ChooseAFile' | localize }}
+                                              </label>
+                                          </div>
+                                          <span class="form-text text-muted col-lg-12">
+                                              {{ 'ProfilePicture_Change_Info' | localize: maxProfilPictureBytesUserFriendlyValue }}
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                 [maintainAspectRatio]="true"
+                                                 [aspectRatio]="4 / 4"
+                                                 [resizeToWidth]="128"
+                                                 format="png"
+                                                 (imageCropped)="imageCroppedFile($event)"></image-cropper>
+
+
+                              </form>
+
+                          <!--<div class="my-3">
+                                <label class="form-label" for="UserName">{{ l('Author') }}</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled />
+                                    <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button">
+                                        <i class="bi bi-search"></i>
+                                        {{ l('Pick') }}
+                                    </button>
+                                    <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <input class="form-control" name="course.userId" [(ngModel)]="course.userId" type="text" hidden />-->
+
+                      </tab>
+ 
+                  </tabset>
+ 
+
+              </div>
+              <div class="modal-footer">
+                  <button [disabled]="saving" type="button" class="btn btn-outline btn-outline-primary" (click)="close()">{{ l('Cancel') }}</button>
+                  <button type="submit"
+                          class="btn btn-primary blue"
+                          [disabled]="!courseForm.form.valid"
+                          [buttonBusy]="saving"
+                          [busyText]="l('SavingWithThreeDot')">
+                      <i class="fa fa-save"></i>
+                      <span>{{ l('Save') }}</span>
+                  </button>
+              </div>
+          </form>
+ 
+      </div>
+  </div>
+  <courseUserLookupTableModal #courseUserLookupTableModal (modalSave)="getNewUserId()"></courseUserLookupTableModal>
+</div>

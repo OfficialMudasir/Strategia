@@ -1,0 +1,72 @@
+﻿<div
+  bsModal
+  #createOrEditModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createOrEditModal"
+  aria-hidden="true"
+  [config]="{ backdrop: 'static' }"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span>{{ l('Details') }}</span>
+        </h4>
+
+        <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 mb-3">
+            <h6>{{ l('CourseTotal') }} :</h6>
+            {{ item.courseUser.courseTotal }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>{{ l('CourseCompletedTotal') }} :</h6>
+            {{ item.courseUser.courseCompletedTotal }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>{{ l('CourseLessonTotal') }} :</h6>
+            {{ item.courseUser.courseLessonTotal }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>{{ l('CourseLessonCompletedTotal') }} :</h6>
+            {{ item.courseUser.courseLessonCompletedTotal }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>{{ l('CourseLessonActivityTotal') }} :</h6>
+            {{ item.courseUser.courseLessonActivityTotal }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>{{ l('CourseLessonActivityCompletedTotal') }} :</h6>
+            {{ item.courseUser.courseLessonActivityCompletedTotal }}
+          </div>
+
+          <div class="col-6 mb-3">
+            <h6>({{ l('Course') }}) {{ l('Name') }} :</h6>
+            {{ item.courseName }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>({{ l('CourseLesson') }}) {{ l('Name') }} :</h6>
+            {{ item.courseLessonName }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>({{ l('CourseLessonActivity') }}) {{ l('Name') }} :</h6>
+            {{ item.courseLessonActivityName }}
+          </div>
+          <div class="col-6 mb-3">
+            <h6>({{ l('UserProfile') }}) {{ l('ProfileName') }} :</h6>
+            {{ item.userProfileProfileName }}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="saving" type="button" class="btn btn-outline btn-outline-primary" (click)="close()">
+          {{ l('Close') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

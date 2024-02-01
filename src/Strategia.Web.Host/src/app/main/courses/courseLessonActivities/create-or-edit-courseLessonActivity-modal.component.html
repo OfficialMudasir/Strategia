@@ -1,0 +1,146 @@
+﻿<div
+  bsModal
+  #createOrEditModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createOrEditModal"
+  aria-hidden="true"
+  [config]="{ backdrop: 'static' }"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form *ngIf="active" #courseLessonActivityForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="courseLessonActivity.id">{{ l('EditCourseLessonActivity') }}</span>
+            <span *ngIf="!courseLessonActivity.id">{{ l('CreateNewCourseLessonActivity') }}</span>
+          </h4>
+
+          <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+        </div>
+        <div class="modal-body">
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonDisplayProperty">{{ l('CourseLesson') }}</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="CourseLessonDisplayProperty"
+                name="courseLessonDisplayProperty"
+                [(ngModel)]="courseLessonDisplayProperty"
+                type="text"
+                disabled
+              />
+              <button class="btn btn-primary blue" (click)="openSelectCourseLessonModal()" type="button">
+                <i class="bi bi-search"></i>
+                {{ l('Pick') }}
+              </button>
+              <button class="btn btn-danger btn-icon" type="button" (click)="setCourseLessonIdNull()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          </div>
+          <input
+            class="form-control"
+            name="courseLessonActivity.courseLessonId"
+            [(ngModel)]="courseLessonActivity.courseLessonId"
+            type="text"
+            hidden
+          />
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonActivity_Name">{{ l('Name') }} *</label>
+            <input
+              type="text"
+              #CourseLessonActivity_Name="ngModel"
+              id="CourseLessonActivity_Name"
+              class="form-control"
+              [(ngModel)]="courseLessonActivity.name"
+              name="Name"
+              required
+            />
+            <validation-messages [formCtrl]="CourseLessonActivity_Name"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonActivity_Description">{{ l('Description') }}</label>
+            <input
+              type="text"
+              #CourseLessonActivity_Description="ngModel"
+              id="CourseLessonActivity_Description"
+              class="form-control"
+              [(ngModel)]="courseLessonActivity.description"
+              name="Description"
+            />
+            <validation-messages [formCtrl]="CourseLessonActivity_Description"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonActivity_ActivityType">{{ l('ActivityType') }}</label>
+            <select
+              class="form-select"
+              #CourseLessonActivity_ActivityType="ngModel"
+              name="ActivityType"
+              id="CourseLessonActivity_ActivityType"
+              [(ngModel)]="courseLessonActivity.activityType"
+            >
+              <option value="1">{{ l('RichContext') }}</option>
+
+              <option value="2">{{ l('Video') }}</option>
+
+              <option value="3">{{ l('Questionnaire') }}</option>
+            </select>
+            <validation-messages [formCtrl]="CourseLessonActivity_ActivityType"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonActivity_TitleImage">{{ l('TitleImage') }}</label>
+            <input
+              type="text"
+              #CourseLessonActivity_TitleImage="ngModel"
+              id="CourseLessonActivity_TitleImage"
+              class="form-control"
+              [(ngModel)]="courseLessonActivity.titleImage"
+              name="TitleImage"
+              minlength="0"
+              maxlength="256"
+            />
+            <validation-messages [formCtrl]="CourseLessonActivity_TitleImage"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonActivity_TitleVideo">{{ l('TitleVideo') }}</label>
+            <input
+              type="text"
+              #CourseLessonActivity_TitleVideo="ngModel"
+              id="CourseLessonActivity_TitleVideo"
+              class="form-control"
+              [(ngModel)]="courseLessonActivity.titleVideo"
+              name="TitleVideo"
+              minlength="0"
+              maxlength="256"
+            />
+            <validation-messages [formCtrl]="CourseLessonActivity_TitleVideo"></validation-messages>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-outline btn-outline-primary" (click)="close()">{{ l('Cancel') }}</button>
+          <button
+            type="submit"
+            class="btn btn-primary blue"
+            [disabled]="!courseLessonActivityForm.form.valid"
+            [buttonBusy]="saving"
+            [busyText]="l('SavingWithThreeDot')"
+          >
+            <i class="fa fa-save"></i>
+            <span>{{ l('Save') }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <courseLessonActivityCourseLessonLookupTableModal
+    #courseLessonActivityCourseLessonLookupTableModal
+    (modalSave)="getNewCourseLessonId()"
+  ></courseLessonActivityCourseLessonLookupTableModal>
+</div>

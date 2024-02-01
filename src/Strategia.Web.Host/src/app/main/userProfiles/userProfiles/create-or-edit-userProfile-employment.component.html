@@ -1,0 +1,86 @@
+﻿<div [@routerTransition]>
+    <div class="d-flex flex-column flex-column-fluid">
+        <div [class]="containerClass">
+
+            <div class="card card-custom gutter-b  border-0">
+                <div class="modal-header align-items-baseline ps-0 pt-4 pb-2 mb-6">
+                    <h4 class="modal-title">
+                        <span *ngIf="edit">{{ l('EditEmployment') }}</span>
+                        <span *ngIf="!edit">{{ l('CreateEmployment') }}</span>
+                    </h4>
+                    <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+                </div>
+
+                <div *ngIf="userprofile" class="card-body p-0">
+
+                    <!--begin::Content-->
+                    <div class="mb-3">
+                        <label for="institution" class="form-label text-dark fw-bold">Employer</label>
+                        <input type="text" id="institution" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].employer.name.normalized" placeholder="Enter Employer name" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="location" class="form-label text-dark fw-bold">Location</label>
+                        <div class="row">
+                            <div class="col-md-6 mb-1">
+                                <input type="text" id="country" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].employer.location.countryCode" placeholder="Enter country" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="region" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].employer.location.municipality" placeholder="Enter region" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="institution" class="form-label text-dark fw-bold">Job Level</label>
+                        <input type="text" id="institution" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].jobLevel" placeholder="Enter Job level" />
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6 mb-1">
+                                <div class="row">
+                                    <label for="startYear" class="col-12 col-form-label text-dark fw-bold">From</label>
+                                    <div class="col-12">
+                                        <select id="startYear" [ngModel]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].startDate.date.year" (ngModelChange)="onStartYearChange($event)" class="form-select w-100">
+                                            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label for="endYear" class="col-12 col-form-label text-dark fw-bold">To</label>
+                                    <div class="col-12">
+                                        <select id="endYear" [ngModel]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].endDate.date.year" (ngModelChange)="onEndYearChange($event)" class="form-select w-100">
+                                            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label text-dark fw-bold">Description</label>
+                        <textarea id="description" rows="10" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.employmentHistory.positions[index].description" placeholder="Enter description"></textarea>
+                    </div>
+
+                    <!--end::Content-->
+
+                </div>
+
+                <!-- Card Footer with Save and Cancel Buttons -->
+                <div class="card-footer pe-0">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" (click)="close();$event.stopPropagation();">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="saving">Save</button>
+                    </div>
+                </div>
+                <!-- End of Card Footer -->
+
+            </div>
+
+        </div>
+    </div>
+</div>

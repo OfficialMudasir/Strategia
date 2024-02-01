@@ -1,0 +1,139 @@
+<div class="card h-xl-100">
+    <!--begin::Header-->
+    <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold text-dark">Your Active Courses</span>
+
+            <span class="text-muted mt-1 fw-semibold fs-7">Avg. 72% completed lessons</span>
+        </h3>
+
+        <!--begin::Toolbar-->
+        <div class="card-toolbar">
+            <a href="#" class="btn btn-sm btn-light">All Courses</a>
+        </div>
+        <!--end::Toolbar-->
+    </div>
+    <!--end::Header-->
+    <!--begin::Body-->
+    <div class="card-body pt-6">
+
+        <div *ngFor="let courseUser of courseUsers" class="border border-gray-300 border-dashed rounded p-6 mb-6">
+            <!-- Course header -->
+            <div class="d-flex">
+                <!-- Course details -->
+                <div class="d-flex align-items-center flex-grow-1 me-2 me-sm-5 mb-2">
+                    <!-- Course name and description -->
+                    <div class="me-2">
+                        <a [routerLink]="['/app/main/courses/courses/' + courseUser.courseUser.courseId + '/view']" class="text-gray-800 text-hover-primary fs-4 fw-bold">{{courseUser.courseName}}</a>
+                        <span class="text-gray-400 fw-bold d-block fs-7">
+                            {{ courseUser.courseDescription.length > 128 ? courseUser.courseDescription.slice(0, 128) + '...' : courseUser.courseDescription }}
+                        </span>
+
+                        <span class="btn btn-sm  mt-2 btn-bg-light btn-active-color-primary " (click)="toggleLessons(courseUser.courseId)">
+                            <!--<i class="ki-duotone ki-right-square  fs-4 text-gray-600 me-2"><span class="path1"></span><span class="path2"></span></i>-->
+                            View Lessons
+                        </span>
+
+                    </div>
+                </div>
+                <!-- Course info -->
+                <div class="">
+                    <!-- Course completion info -->
+                    <div>
+                        <!--<span class="text-dark fw-bolder fs-2x">{{courseUser.courseUser.courseCompletedTotal}}</span>
+                        <span class="fw-semibold fs-2 text-gray-600 mx-1 pt-1">/</span>
+                        <span class="text-gray-600 fw-semibold fs-2 me-3 pt-2">{{courseUser.lessons.length}}</span>
+                        <span class="badge badge-lg badge-light-success align-self-center px-2">
+                            {{ (courseUser.courseUser.courseCompletedTotal / courseUser.lessons.length * 100) }}%
+                        </span>-->
+
+                        <span class="badge badge-lg badge-light-success align-self-center fs-2">  {{ courseUser.total ? (courseUser.completedTotal / courseUser.total * 100).toFixed(0) + '%' : '0%' }}</span>
+
+                    </div>
+                    <!-- Move the "Continue" button here -->
+                    <a href="javascript:;" class="btn btn-sm pull-right mt-2 btn-bg-light btn-active-color-primary d-block">
+                        continue
+                    </a>
+                </div>
+            </div>
+            <!-- Lessons section -->
+            <div class="me-2 ">
+                <!-- Lessons header -->
+
+                <!-- Lessons content -->
+                <div *ngIf="lessonVisibilityMap.get(courseUser.courseId)">
+
+                    <div *ngFor="let lesson of courseUser.lessons" class="border border-gray-300 border-dashed rounded p-6 mb-6">
+
+                        <!-- Lesson header -->
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center flex-grow-1 me-2 me-sm-5  mb-2">
+                                <!-- Lesson details -->
+                                <div class="me-2">
+                                    <a [routerLink]="['/app/main/courses/courses/' + courseUser.courseUser.courseId + '/view']" class="text-gray-800 text-hover-primary fs-6 fw-bold">{{lesson.courseLessonName}}</a>
+                                    <span class="text-gray-400 fw-bold d-block fs-7">{{lesson.courseLessonDescription}}</span>
+
+                                    <span class="btn btn-sm  mt-2 btn-bg-light btn-active-color-primary" (click)="toggleActivities(lesson.courseUser.courseLessonId)">
+                                        View Activities
+                                    </span>
+
+                                </div>
+                            </div>
+                            <!-- Lesson info -->
+                            <div class="">
+                                <!-- Lesson completion info -->
+                                <div>
+                                    <!--<span class="text-dark fw-bolder fs-2x">{{lesson.completedTotal}}</span>
+                                    <span class="fw-semibold fs-2 text-gray-600 mx-1 pt-1">/</span>
+                                    <span class="text-gray-600 fw-semibold fs-2 me-3 pt-2">{{lesson.activities.length}}</span>-->
+                                    <!--<span class="badge badge-lg badge-light-success align-self-center px-2">
+                                        {{ (lesson.completedTotal / lesson.activities.length * 100) }}%
+                                    </span>-->
+
+                                    <span class="badge badge-lg badge-light-success align-self-center fs-2">  {{ lesson.total ? (lesson.completedTotal / lesson.total * 100).toFixed(0) + '%' : '0%' }}</span>
+
+                                </div>
+                                <!-- Move the "Continue" button here -->
+                                <!--<a href="javascript:;" class="btn btn-sm pull-right mt-2 btn-bg-light btn-active-color-primary d-block">
+                                    continue
+                                </a>-->
+                            </div>
+                        </div>
+
+
+                        <!-- Activities section -->
+                        <div>
+                            <!-- Activities header -->
+                            <!-- Activities content -->
+                            <div *ngIf="activityVisibilityMap.get(lesson.courseUser.courseLessonId)">
+                                <div *ngFor="let activity of lesson.activities" class="d-flex border border-gray-300 border-dashed rounded p-6 mb-6">
+                                    <!-- Activity header -->
+                                    <div class="d-flex align-items-center flex-grow-1 me-2 me-sm-5">
+                                        <!-- Activity details -->
+                                        <div class="me-2">
+                                            <a [routerLink]="['/app/main/courses/courseLessonActivities/' + activity.courseUser.courseLessonActivityId + '/view']" class="text-gray-800 text-hover-primary fs-6 fw-bold">{{activity.courseLessonActivityName}}</a>
+                                            <span class="text-gray-400 fw-bold d-block fs-7">{{activity.courseLessonActivityDescription}}</span>
+                                        </div>
+                                    </div>
+                                    <!-- Activity info -->
+                                    <div class="d-flex align-items-center">
+                                        <!-- Activity completion info -->
+                                        <!--<span class="text-dark fw-bolder fs-2x">
+                                            {{ activity.total ? (activity.completedTotal / activity.total * 100).toFixed(0) + '%' : '0%' }}
+                                        </span>-->
+                                        <span class="badge badge-lg badge-light-success align-self-center fs-2">  {{ activity.total ? (activity.completedTotal / activity.total * 100).toFixed(0) + '%' : '0%' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Activities section -->
+                    </div>
+                </div>
+                <!-- End of Lessons content -->
+            </div>
+            <!-- End of Lessons section -->
+        </div>
+        <!-- End of Top-level course -->
+
+        <!--end::Body-->
+    </div>

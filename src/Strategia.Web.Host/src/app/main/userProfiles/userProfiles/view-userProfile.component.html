@@ -1,0 +1,673 @@
+﻿
+<div [@routerTransition] (click)="clicked($event)">
+
+    <!--<sub-header [title]="'YourProfile' | localize" [description]="'' | localize">
+        <div role="actions">
+
+        </div>
+    </sub-header>-->
+
+    <div [class]="containerClass">
+
+ 
+
+        <div class="card mb-5 mb-xl-10">
+            <div class="card-body pt-9 pb-0">
+                <!--begin::Details-->
+                <div class="d-flex flex-wrap flex-sm-nowrap">
+                    <!--begin: Pic-->
+                    <div class="me-7 mb-4">
+                        <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                            <img src="https://preview.keenthemes.com/metronic8/demo1/assets/media/avatars/300-1.jpg" alt="image">
+                            <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+                        </div>
+                    </div>
+                    <!--end::Pic-->
+                    <!--begin::Info-->
+                    <div class="flex-grow-1">
+                        <!--begin::Title-->
+                        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                            <!--begin::User-->
+                            <div class="d-flex flex-column">
+                                <!--begin::Name-->
+                                <div class="d-flex align-items-center mb-2">
+                                    <div contenteditable="true"
+                                         class="text-gray-900 text-hover-primary fs-2 fw-bold me-1"
+                                         (blur)="this.userprofile.userProfile.profileName = $event.target.innerText; this.save();">
+                                        {{userprofile?.userProfile?.parsedResume?.contactInformation?.candidateName?.formattedName}}
+                                    </div>
+
+                                    <a href="#"><i class="ki-duotone ki-verify fs-1 text-primary"><span class="path1"></span><span class="path2"></span></i></a>
+                                </div>
+                                <!--end::Name-->
+                                <!--begin::Info-->
+                                <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+
+                                    <div class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                                        <i class="fa fa-location-dot fs-4 me-1"><span class="path1"></span><span class="path2"></span></i>
+                                        <span contenteditable="true" (blur)="this.userprofile.userProfile.parsedResume.contactInformation.location.municipality = $event.target.innerText; this.save();">{{userprofile?.userProfile?.parsedResume?.contactInformation?.location?.municipality}}</span>,&nbsp;
+                                        <span contenteditable="true" (blur)="this.userprofile.userProfile.parsedResume.contactInformation.location.countryCode = $event.target.innerText; this.save();">{{userprofile?.userProfile?.parsedResume?.contactInformation?.location?.countryCode}}</span>,&nbsp;
+                                        <span contenteditable="true" (blur)="this.userprofile.userProfile.parsedResume.contactInformation.location.postalCode = $event.target.innerText; this.save();">{{userprofile?.userProfile?.parsedResume?.contactInformation?.location?.postalCode}}</span>,&nbsp;
+                                        <span *ngIf="userprofile?.userProfile?.parsedResume?.contactInformation?.emailAddresses && userprofile?.userProfile?.parsedResume?.contactInformation?.emailAddresses?.length > 0">
+                                            <span *ngFor="let email of userprofile?.userProfile?.parsedResume?.contactInformation?.emailAddresses; let i = index;">
+                                                <span (blur)="userprofile.userProfile.parsedResume.contactInformation.emailAddresses[i] = $event.target.innerText; this.save();" contenteditable="true">{{ email }}</span>
+                                            </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <!--end::Info-->
+                            </div>
+                            <!--end::User-->
+                            <!--begin::Actions-->
+                            <div class="d-flex my-4">
+ 
+                                <a (click)="createUserProfile();" href="javascript:;" class="btn btn-sm btn-secondary me-2" id="kt_user_follow_button">
+                                    <i class="ki-duotone ki-check fs-3 d-none"></i>
+                                    <!--begin::Indicator label-->
+                                    <span class="indicator-label">
+                                        Upload Resume
+                                    </span>
+                                    <!--end::Indicator label-->
+                                    <!--begin::Indicator progress-->
+                                    <span class="indicator-progress">
+                                        Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                    <!--end::Indicator progress-->
+                                </a>
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Title-->
+                        <!--begin::Stats-->
+                        <div class="d-flex flex-wrap flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="d-flex flex-column flex-grow-1 pe-8">
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-wrap">
+
+
+                                    <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                                        <span class="fw-semibold fs-6 text-gray-400">Profile Completion</span>
+                                        <span class="fw-bold fs-6">50%</span>
+                                    </div>
+
+                                    <div class="h-5px mx-3 w-100 bg-light mb-3">
+                                        <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+
+                                    <!--begin::Stat-->
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-arrow-up fs-3 text-danger me-2"><span class="path1"></span><span class="path2"></span></i>
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500" data-kt-countup-prefix="$" data-kt-initialized="1">25%</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <div class="fw-semibold fs-6 text-gray-400">Preferences</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Stat-->
+                                    <!--begin::Stat-->
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-arrow-down fs-3 text-success me-2"><span class="path1"></span><span class="path2"></span></i>
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="80" data-kt-initialized="1">80%</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <div class="fw-semibold fs-6 text-gray-400">Education</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Stat-->
+                                    <!--begin::Stat-->
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-arrow-up fs-3 text-warning me-2"><span class="path1"></span><span class="path2"></span></i>
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="60" data-kt-countup-prefix="%" data-kt-initialized="1">60%</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <div class="fw-semibold fs-6 text-gray-400">Employment History</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Stat-->
+                                    <!--begin::Stat-->
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-arrow-up fs-3 text-warning me-2"><span class="path1"></span><span class="path2"></span></i>
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="60" data-kt-countup-prefix="%" data-kt-initialized="1">60%</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <div class="fw-semibold fs-6 text-gray-400">Skills</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Stat-->
+                                    <!--begin::Stat-->
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-arrow-up fs-3 text-danger me-2"><span class="path1"></span><span class="path2"></span></i>
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="30" data-kt-countup-prefix="%" data-kt-initialized="1">20%</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <div class="fw-semibold fs-6 text-gray-400">Resume Quality</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Stat-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Progress-->
+                            <!--<div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                                <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                                    <span class="fw-semibold fs-6 text-gray-400">Profile Completion</span>
+                                    <span class="fw-bold fs-6">50%</span>
+                                </div>
+
+                                <div class="h-5px mx-3 w-100 bg-light mb-3">
+                                    <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>-->
+                            <!--end::Progress-->
+                        </div>
+                        <!--end::Stats-->
+                    </div>
+                    <!--end::Info-->
+                </div>
+                <!--end::Details-->
+                <!--begin::Navs-->
+                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                    <!--begin::Nav item-->
+                    <li class="nav-item mt-2">
+                        <a (click)="tabId = 1" [class.active]="tabId == 1" class="nav-link text-active-primary ms-0 me-10 py-5" href="javascript:;">
+                            Overview
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li class="nav-item mt-2">
+                        <a (click)="tabId = 7" [class.active]="tabId == 7" class="nav-link text-active-primary ms-0 me-10 py-5" href="javascript:;">
+                            Preferences
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li (click)="tabId = 2" class="nav-item mt-2">
+                        <a [class.active]="tabId == 2" class="nav-link text-active-primary ms-0 me-10 py-5 " href="javascript:;">
+                            Education
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li (click)="tabId = 3" class="nav-item mt-2">
+                        <a [class.active]="tabId == 3" class="nav-link text-active-primary ms-0 me-10 py-5 " href="javascript:;">
+                            Employment History
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li [class.active]="tabId == 4" (click)="tabId = 4" class="nav-item mt-2">
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="javascript:;">
+                            Skills
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li (click)="tabId = 5" class="nav-item mt-2">
+                        <a [class.active]="tabId == 5" class="nav-link text-active-primary ms-0 me-10 py-5 " href="javascript:;">
+                            Resume Quality
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li (click)="tabId = 6" class="nav-item mt-2">
+                        <a [class.active]="tabId == 6" class="nav-link text-active-primary ms-0 me-10 py-5 " href="javascript:;">
+                            Job Recommendation
+                        </a>
+                    </li>
+                    <!--end::Nav item-->
+                </ul>
+                <!--begin::Navs-->
+            </div>
+        </div>
+
+
+        <div *ngIf="tabId==1" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid">
+                        <!--begin::Post content-->
+                        <div class="mb-17">
+                            <!--begin::Description-->
+                            <div class="fs-5 fw-semibold">
+                                <!--begin::Text-->
+                                <div style="line-height:150%" [innerText]="transformText(userprofile?.userProfile?.parsedResume?.professionalSummary)" contenteditable="true" (blur)="this.userprofile.userProfile.parsedResume.professionalSummary = $event.target.innerText; this.save();">
+
+                                </div>
+                                <!--end::Text-->
+                            </div>
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Post content-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Sidebar-->
+                    <!--end::Sidebar-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+        <div *ngIf="tabId==7" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+
+                <table class="table mb-8">
+                    <tbody>
+                        <tr class="align-middle">
+                            <td class="fw-semibold fs-6" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3"></div></td>
+                            <td>
+                                <label class="form-check form-check-custom form-check-solid py-1"><input id="EditUser_IsActive" type="checkbox" name="IsActive" class="form-check-input" [(ngModel)]="this.userprofile.userProfile.active"><span class="form-check-label"> Searchable by Employers </span></label>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold fs-6" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Current Industries</div></td>
+                            <td>
+                                <p-multiSelect [options]="industries"
+                                               [(ngModel)]="this.selectedIndustries"
+                                               defaultLabel="Select current Industries"
+                                               optionLabel="name" styleClass="small"
+                                               (onChange)="onMultiSelectChange($event)"
+                                               display="chip">
+                                </p-multiSelect>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold fs-6" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Preferred Industries</div></td>
+                            <td>
+                                <p-multiSelect [options]="industries"
+                                               [(ngModel)]="this.preferredIndustries"
+                                               defaultLabel="Select preferred Industries"
+                                               optionLabel="name" class="w-100 small"
+                                                (onChange)="onMultiSelectChange($event)"
+                                               display="chip">
+                                </p-multiSelect>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Current Locations</div></td>
+                            <td>
+                                <p-multiSelect [options]="countries"
+                                               [(ngModel)]="this.selectedLocations"
+                                               defaultLabel="Select current Location" class="w-100 small"
+                                                (onChange)="onMultiSelectChange($event)"
+                                               optionLabel="name" display="chip">
+                                </p-multiSelect>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Preferred Locations</div></td>
+                            <td>
+                                <p-multiSelect [options]="countries"
+                                               [(ngModel)]="this.preferredlocation"
+                                               defaultLabel="Select preferred Location" class="w-100 small"
+                                                (onChange)="onMultiSelectChange($event)"
+                                               optionLabel="name" display="chip">
+                                </p-multiSelect>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Current Roles</div></td>
+                            <td>
+                                <p-multiSelect [options]="roles"
+                                               [(ngModel)]="this.selectedRoles"
+                                               defaultLabel="Select current Role" class="small"
+                                                (onChange)="onMultiSelectChange($event)"
+                                               optionLabel="name" display="chip">
+                                </p-multiSelect>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold" style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Preferred Roles</div></td>
+                            <td>
+                                <p-multiSelect [options]="roles"
+                                               [(ngModel)]="this.preferredRoles"
+                                               defaultLabel="Select preferred Role" class="small"
+                                                (onChange)="onMultiSelectChange($event)"
+                                               optionLabel="name" display="chip">
+                                </p-multiSelect>
+                            </td>
+                        </tr>
+
+                        <tr class="align-middle">
+                            <td class="fw-semibold " style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Current Salary Band</div></td>
+                            <td>
+                                <div class="d-flex">
+                                    <span class="input-group custom-input-group mb-3 mw-175px me-2" title="Current Salary">
+                                        <span class="input-group-prepend custom-prepend">
+                                            <span class="input-group-text custom-input-group-text" id="basic-addon1">
+                                                AUD
+                                            </span>
+                                        </span>
+                                        <input type="number" (ngModelChange)="onSalaryChange($event)" class="form-control custom-form-control" [(ngModel)]="this.userprofile.userProfile.currentSalaryBandLow" placeholder="Select current Salary Band (low)">
+                                    </span>
+                                    <!--<span class="input-group custom-input-group mb-3 mw-125px me-2" title="Current Salary Band (high)">
+                    <span class="input-group-prepend custom-prepend">
+                        <span class="input-group-text custom-input-group-text" id="basic-addon1">
+                            $
+                        </span>
+                    </span>
+                    <input type="number" class="form-control custom-form-control" [(ngModel)]="this.userprofile.userProfile.currentSalaryBandHigh" placeholder="Select current Salary Band (high)">
+                </span>-->
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="align-middle">
+                            <td class="fw-semibold " style="width: 1%; white-space: nowrap;"><div class="fs-6 fw-semibold mt-2 mb-3">Preferred Salary</div></td>
+                            <td>
+                                <div class="d-flex">
+                                    <span class="input-group custom-input-group mb-3 mw-175px me-2" title="Preferred Salary">
+                                        <span class="input-group-prepend custom-prepend">
+                                            <span class="input-group-text custom-input-group-text" id="basic-addon1">
+                                                AUD
+                                            </span>
+                                        </span>
+                                        <input type="number" (ngModelChange)="onSalaryChange($event)" class="form-control custom-form-control" [(ngModel)]="this.userprofile.userProfile.preferredSalaryBandLow" placeholder="Select preferred Salary Band (low)">
+                                    </span>
+                                    <!--<span class="input-group custom-input-group mb-3 mw-125px me-2" title="Preferred Salary Band (high)">
+                    <span class="input-group-prepend custom-prepend">
+                        <span class="input-group-text custom-input-group-text" id="basic-addon1">
+                            $
+                        </span>
+                    </span>
+                    <input type="number" class="form-control custom-form-control" [(ngModel)]="this.userprofile.userProfile.preferredSalaryBandHigh" placeholder="Select preferred Salary Band (high)">
+                </span>-->
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+ 
+  
+
+
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+        <div *ngIf="tabId==2" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid ">
+                        <!--begin::Post content-->
+                        <div class="mb-17">
+                            <!--begin::Description-->
+
+                            <div class="timeline-label mb-12">
+                                <!--begin::Item-->
+                                <div *ngFor="let education of userprofile?.userProfile?.parsedResume?.education?.educationDetails"  (click)="openCreateOrEditEducation(userprofile, education);$event.stopPropagation();" class="timeline-item">
+                                    <!--begin::Label-->
+                                    <div class="timeline-label fw-bold text-gray-800 fs-6">{{education?.endDate?.date.year }}</div>
+                                    <!--end::Label-->
+                                    <!--begin::Badge-->
+                                    <div class="timeline-badge">
+                                        <i class="fa fa-genderless text-success fs-1"></i>
+                                    </div>
+                                    <!--end::Badge-->
+                                    <!--begin::Desc-->
+                                    <div class="timeline-content fw-semibold text-gray-800 ps-3">
+                                        <div class="fs-4">{{education?.degree?.type}}: {{education?.schoolName?.normalized  }}</div>
+                                        <div >
+                                            <span *ngFor="let major of education.majors; let i = index" class="badge  badge-pill badge-success me-3 mt-1">
+                                                {{major}}
+                                            </span>
+                                        </div>
+                                        <div class="mb-3  text-muted ">
+                                            {{education?.text}}
+                                        </div>
+                                        <div>
+                                            <a href="javascript:;" class="btn btn-sm rounded btn-secondary me-2 mb-2" (click)="deleteEducationDetails(education);$event.stopPropagation();">delete</a>
+                                            <a href="javascript:;" class="btn btn-sm rounded btn-secondary me-2 mb-2 ">edit</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Item-->
+                            </div>
+ 
+                            <div>
+                                <span (click)="addEducation();$event.stopPropagation();" class="btn btn-sm fw-bold btn-primary">
+                                    Add New
+                                </span>
+                            </div>
+
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Post content-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Sidebar-->
+                    <!--end::Sidebar-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+        <div *ngIf="tabId==3" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid">
+                        <!--begin::Post content-->
+                        <div class="mb-17">
+                            <!--begin::Description-->
+
+                            <div class="timeline-label mb-12">
+                                <!--begin::Item-->
+                                <div *ngFor="let position of userprofile?.userProfile?.parsedResume?.employmentHistory?.positions" (click)="openCreateOrEditEmployment(userprofile, position);$event.stopPropagation();"  class="timeline-item">
+                                    <!--begin::Label-->
+                                    <div class="timeline-label fw-bold text-gray-800 fs-6">{{ position.startDate.date.year }} to {{ position.endDate.date.year }} </div>
+                                    <!--end::Label-->
+                                    <!--begin::Badge-->
+                                    <div class="timeline-badge">
+                                        <i class="fa fa-genderless text-primary fs-1"></i>
+                                    </div>
+                                    <!--end::Badge-->
+                                    <!--begin::Desc-->
+                                    <div class="timeline-content fw-semibold text-gray-800 ps-3">
+                                        <div class="fs-4">{{ position.employer.name.normalized  }}</div>
+                                        
+                                        <div>
+                                            <span class="">
+                                                {{position?.employer?.location?.municipality}}
+                                            </span>, <span class="">{{position?.employer?.location?.countryCode}}</span>. <span class="">{{position?.jobTitle?.normalized}}</span> - <span class="">
+                                                {{position?.jobLevel}}
+                                            </span>
+                                        </div>
+                                        <div class="mb-3  text-muted ">
+                                            {{ position.description}}
+                                        </div>
+                                        <div>
+                                            <a href="javascript:;" class="btn btn-sm rounded btn-secondary me-2 mb-2" (click)="deleteEmployment(position);$event.stopPropagation();">delete</a>
+                                            <a href="javascript:;" class="btn btn-sm rounded btn-secondary me-2 mb-2 ">edit</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Item-->
+                            </div>
+ 
+                            <div>
+                                <span (click)="addEmployment();$event.stopPropagation();" class="btn btn-sm fw-bold btn-primary">
+                                    Add New
+                                </span>
+                            </div>
+
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Post content-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Sidebar-->
+                    <!--end::Sidebar-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+
+        <div *ngIf="tabId==4" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid">
+                        <!--begin::Post content-->
+                        <div class="mb-17">
+                            <!--begin::Description-->
+
+                            <div class="align-items-center mb-2">
+                                <div class="text-black text-hover-primary fs-2 fw-bold me-1">Add Skills</div>
+                                <div class="text-gray-600 text-hover-primary fs-6 fw-bold me-1">Help employers find you by showcasing all of your skills.</div>
+                            </div>
+
+                            <div class="card flex justify-content-center">
+                                <p-listbox (onChange)="onSkillSelect($event)"  [options]="skills" optionLabel="name" [filter]="true" [style]="{ width: '20em', 'max-height': '200px', 'overflow-y': 'auto' }"></p-listbox>
+                            </div>
+
+                            <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">Suggested skills based on your career history</div>
+                            <span (click)="addSkill(skill?.name); removeSkill(i);" *ngFor="let skill of userprofile?.userProfile?.parsedResume?.skills?.raw; let i = index;" class="badge badge-lg badge-pill badge-secondary badge-hover p-3 me-3 mt-3">{{skill?.name}} <i class="fa fa-plus ms-2 fa-bold"></i> </span>
+
+                            <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">Your Skills</div>
+                            <span (click)="removeSelectedSkill(i);"  *ngFor="let skill of selectedSkills; let i = index;" class="badge badge-lg badge-pill badge-success  p-3 me-3 mt-3">{{skill}} <i class="fa fa-minus text-secondary ms-2 fa-bold"></i> </span>
+
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Post content-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Sidebar-->
+                    <!--end::Sidebar-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+
+        <div *ngIf="tabId==5" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid">
+                        <!--begin::Post content-->
+                        <div class="mb-17">
+                            <!--begin::Description-->
+
+                            <div *ngFor="let resumeQuality of userprofile?.userProfile?.parsedResume?.resumeMetadata?.resumeQuality" class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-6 p-6">
+                                <!--begin::Icon-->
+                                <i class="fa fa-warning fa-2x text-warning me-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>        <!--end::Icon-->
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-stack flex-grow-1 ">
+                                    <!--begin::Content-->
+                                    <div class=" fw-semibold">
+                                        <h4 class="text-gray-900 fw-bold">{{resumeQuality.level}}</h4>
+
+                                        <span *ngFor="let finding of resumeQuality.findings" class="fs-6 text-gray-700 ">
+                                            {{finding.message}}
+                                        </span>
+
+
+                                    </div>
+                                    <!--end::Content-->
+
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Post content-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Sidebar-->
+                    <!--end::Sidebar-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+
+        <div *ngIf="tabId==6" class="card">
+            <!--begin::Body-->
+            <div class="card-body p-lg-15 pb-lg-0">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid">
+                        <!--begin::Post content-->
+                        <div class="mb-17">
+                            <!--begin::Description-->
+                            <div [innerHTML]="transformText(userprofile?.userProfile?.chatGPTRecommendation)" class="fs-5 fw-semibold ">
+
+                            </div>
+                            <!--end::Description-->
+                        </div>
+                        <!--end::Post content-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Sidebar-->
+                    <!--end::Sidebar-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+
+    </div>
+
+</div>
+
+<createOrEditUserProfileModal #createOrEditUserProfileModal (modalSave)="reload()"></createOrEditUserProfileModal>
+
+<!--start::Sidebar-->
+<div id="createOrEditUserProfileEducationContent" class="sidenav border shadow card card-custom">
+    <create-or-edit-userProfile-education #CreateOrEditUserProfileEducationComponent (modalSave)="save()" (onDelete)="reload()"></create-or-edit-userProfile-education>
+</div>
+
+<div id="createOrEditUserProfileEmploymentContent" class="sidenav border shadow card card-custom">
+    <create-or-edit-userProfile-employment #CreateOrEditUserProfileEmploymentComponent (modalSave)="save()" (onDelete)="reload()"></create-or-edit-userProfile-employment>
+</div>
+<!--end::Sidebar-->
+
+
+<!--<viewUserProfileWizard id="ViewUserProfileWizardComponent"></viewUserProfileWizard>--> 

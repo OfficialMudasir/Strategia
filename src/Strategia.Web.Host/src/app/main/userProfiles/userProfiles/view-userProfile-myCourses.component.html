@@ -1,0 +1,225 @@
+﻿<div [@routerTransition]>
+    <div [class]="containerClass">
+        <!--begin::Card-->
+         
+        <div *ngIf="tabId==1" class="  ">
+            <!--begin::Card body-->
+
+            <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex   mb-8  " role="tablist">
+                <!--begin::Nav item-->
+                <li class="nav-item p-0 ms-0" role="presentation">
+                    <a class="nav-link btn btn-color-gray-500 flex-center px-3" [class.active]="isProgress" data-kt-timeline-widget-4="tab" data-bs-toggle="tab" href="javascript:;" (click)="filterCourses('inProgress')" contenteditable="false" style="cursor: pointer;" aria-selected="true" role="tab">
+                        <!--begin::Title-->
+                        <span class="nav-text fw-semibold fs-4  ">   {{ l('In Progress') }}</span>
+                        <!--end::Title-->
+                        <!--begin::Bullet-->
+                        <span class="bullet-custom position-absolute z-index-2 w-100 h-1px top-100 bottom-n100 bg-primary rounded"></span>
+                        <!--end::Bullet-->
+                    </a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item p-0 ms-0" role="presentation">
+                    <a class="nav-link btn btn-color-gray-500 flex-center px-3" [class.active]="isCompleted" data-kt-timeline-widget-4="tab" data-bs-toggle="tab" href="javascript:;" (click)="filterCourses('completed')" contenteditable="false" style="cursor: pointer;" aria-selected="false" tabindex="-1" role="tab">
+                        <!--begin::Title-->
+                        <span class="nav-text fw-semibold fs-4  ">   {{ l('Completed') }}</span>
+                        <!--end::Title-->
+                        <!--begin::Bullet-->
+                        <span class="bullet-custom position-absolute z-index-2 w-100 h-1px top-100 bottom-n100 bg-primary rounded"></span>
+                        <!--end::Bullet-->
+                    </a>
+                </li>
+                <!--end::Nav item-->
+            </ul>
+
+            <div class="row">
+                <div class="col-12">
+                    <div *ngIf="groupedCourses?.length <=0" class="notYetEnrolled" id="notYetEnrolled">
+                        <i class="fas fa-exclamation-circle fa-3x"></i>
+                        <span>
+                            {{
+                            l('You are not yet enrolled in any courses. Find a course to enroll in today!')
+                            }}
+                        </span>
+
+
+                        <span (click)="navigateToFindCourses(); tabId=1;"
+                              class="btn btn-sm btn-outline mb-12 btn-outline-primary" contenteditable="false"
+                              style="cursor: pointer;">
+                            {{ l('Find a Course') }}
+
+                        </span>
+                    </div>
+
+                    <div *ngFor="let course of filteredCourses; let i = index" class="card card-flush mb-6">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <!--begin::Row-->
+                            <div class="row">
+                                <!--begin::Col-->
+                                <div class="col-sm-3 mb-10 mb-sm-0">
+                                    <div class="left-img h-100">
+                                        <!--begin::Image-->
+                                        <img :src={{course.courseTitleImage}} alt="{{course.courseName}}"
+                                             class="h-100 mw-100 ">
+                                        <!--end::Image-->
+                                    </div>
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-sm-9">
+                                    <!--begin::Wrapper-->
+                                    <div class="p-4 h-100 ps-0 pe-5">
+                                        <!--end::Body-->
+                                        <div class="">
+
+                                            <span (click)="selectedCourseId=course.courseId; tabId=2;"
+                                                  class="fw-semibold   fs-5 mb-2 d-block">
+                                                {{ course.courseName }}
+                                            </span>
+
+                                            <span class="fw-semibold text-gray-500 fs-6 mb-8 d-block">
+                                                {{
+                                                course.courseDescription.length > 200 ?
+                                                course.courseDescription.slice(0, 200) + '...' :
+                                                course.courseDescription
+                                                }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div class="symbol symbol-40px me-2 rounded-circle">
+                                                    <img [src]="course.authorProfilePicture" alt="user"
+                                                         [class]="profileImageCssClass" />
+                                                </div>
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <a href="javascript:;"
+                                                       class="text-gray-900 fw-normal text-hover-primary fs-5 disabled-hover">
+                                                        {{course.authorName}}
+                                                    </a>
+                                                    <!-- <span class="text-gray-500 fw-semibold d-block fs-7">{{course.course.authorDescription}}</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="text-end d-flex pull-right gap-4 ">
+                                                <span class="book-wrap d-flex gap-2 fs-4 align-items-center">
+                                                    <i class="bi bi-book fs-5 text-gray-500"></i>
+                                                    <span>{{course.lessons.length}} {{ l('Lessons') }}</span>
+                                                </span>
+                                                <span class=" d-flex gap-2 fs-5 align-items-center">
+                                                    <i class="bi bi-clock fs-3 text-gray-500"></i>
+                                                    <span>{{course.courseTotalVideoDuration}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="course-detail lessons-outer  mt-4 fs-5 border-top border-1 border-outer pb-0">
+
+                                            <div class="course-inner" *ngFor="let courseLesson of course.lessons">
+                                                <!-- Check if the current lesson should be displayed -->
+                                                <ng-container *ngIf="lessonDisplayCache[courseLesson.courseLessonId] == true;"
+                                                              class="d-flex justify-content-between w-100 flex-column">
+                                                    <div class="w-100"
+                                                         *ngFor="let courseLessonActivity of courseLesson.activities">
+                                                        <!-- Check if the current activity should be displayed -->
+                                                        <ng-container *ngIf="activityDisplayCache[courseLessonActivity.courseLessonActivityId] == true">
+                                                            <!-- <div>
+                                                        <span
+                                                            class="d-flex align-items-center  fw-bold text-gray-700 mb-2">
+                                                            <i
+                                                                class="ki-duotone ki-right-square fs-1 text-gray-700 me-2">
+                                                                <span class="path1"></span><span
+                                                                    class="path2"></span>
+                                                            </i>
+                                                            <span class="fs-5">
+                                                                {{courseLesson.courseLessonName}} -
+                                                                {{courseLessonActivity.courseLessonActivityName}}
+                                                            </span>
+                                                        </span>
+                                                    </div> -->
+                                                            <!-- Other columns -->
+                                                            <div class="text-start gap-8 align-items-end col-12 d-flex justify-content-between">
+                                                                <div class="d-flex flex-column w-100">
+                                                                    <div>
+                                                                        <span class="d-flex align-items-center  fw-bold text-gray-700 mb-2">
+                                                                            <i class="ki-duotone ki-right-square fs-1 text-gray-700 me-2">
+                                                                                <span class="path1"></span><span class="path2"></span>
+                                                                            </i>
+                                                                            <span class="fs-5">
+                                                                                {{courseLesson.courseLessonName}} -
+                                                                                {{courseLessonActivity.courseLessonActivityName}}
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-start">
+                                                                        <div class="d-flex align-items-center w-100">
+                                                                            <!--begin::Progress-->
+                                                                            <div class="progress h-4px w-100 me-2 ">
+
+                                                                                <div class="progress-bar bg-primary"
+                                                                                     role="progressbar"
+                                                                                     [style.width]="course.courseWatchTimePersentagePerActivity + '%'"
+                                                                                     attr.aria-valuenow="{{ course.courseWatchTimePersentagePerActivity }}"
+                                                                                     aria-valuemin="0"
+                                                                                     aria-valuemax="100">
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Progress-->
+                                                                            <!--begin::Value-->
+                                                                            <span class="text-gray-500 fw-semibold">
+                                                                                {{course.courseWatchTimePersentagePerActivity}}%
+                                                                            </span>
+                                                                            <!--end::Value-->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Last column content -->
+                                                                <span (click)="tabId=3;selectedCourseLessonActivityId=courseLessonActivity.courseLessonActivityId"
+                                                                      class="btn-link fs-3"
+                                                                      contenteditable="false"
+                                                                      style="cursor: pointer;">
+                                                                    {{ l('Continue') }}
+                                                                </span>
+
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Col-->
+
+                            </div>
+                            <!--end::Row-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+        <!--Course Start-->
+        <div *ngIf="tabId==2" class=" ">
+            <viewCourse (courseLessonActivitySelected)="handleChildEvent($event)" [inputCourseId]="selectedCourseId"
+                        [inputUserProfileId]="userProfileId"></viewCourse>
+        </div>
+        <!--Course   End-->
+        <!--Lesson activity Start-->
+        <div *ngIf="tabId==3" class="">
+            <viewCourseLessonActivity [inputCourseLessonActivityId]="selectedCourseLessonActivityId">
+            </viewCourseLessonActivity>
+
+            <span (click)="tabId=1; getMyCourses();" class="btn btn-sm btn-outline mb-12 btn-outline-primary"
+                  contenteditable="false" style="cursor: pointer;">
+                {{ l('Back') }}
+            </span>
+
+        </div>
+        <!--Lesson activity   End-->
+    </div>
+</div>

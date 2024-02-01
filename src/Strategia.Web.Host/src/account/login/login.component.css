@@ -1,0 +1,18 @@
+﻿ a {
+    cursor: pointer;
+    color: blue; /* Set the color to blue */
+}
+ a.btn + .btn {
+    margin-left: 0 !important;
+}
+ a i.fa-openidconnect::before {
+    content: "\f19b";
+}
+
+a i.fa-wsfederation {
+    margin-right: 2px;
+}
+
+ a i.fa-wsfederation::before {
+    content: "\f20e";
+}

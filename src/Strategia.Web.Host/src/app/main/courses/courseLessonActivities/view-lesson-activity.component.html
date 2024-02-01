@@ -1,0 +1,76 @@
+﻿<style>
+    iframe{
+        height: 500px;
+        width: 100%;
+    }
+</style>
+
+<div [@routerTransition]>
+    <div id="kt_app_content" class="">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="">
+            <!--begin::Post card-->
+            <div class=" ">
+                <!--begin::Body-->
+                <div class="  ">
+                    <!--begin::Layout-->
+                    <div class="d-flex flex-column flex-xl-row">
+                        <!--begin::Content-->
+                        <div class="flex-lg-row-fluid ">
+                            <!--begin::Post content-->
+                            <div class="mb-17">
+                                <!--begin::Wrapper-->
+                                <div class="mb-8">
+                                    <!--begin::Title-->
+                                    <a href="javascript:;" class="text-dark disabled-hover fs-2 fw-bold">
+                                        {{activity.name}}
+                                    </a>
+                                    <!--end::Title-->
+                                    <!--begin::Description-->
+                                    <div class="fs-5 fw-semibold text-gray-500">
+                                        <!--begin::Text-->
+                                        <p class="mb-0">
+                                            {{activity.description}}
+                                        </p>
+                                         <div class="fw-bold text-muted pt-4 fs-6">{{vimeoVideoDuration}} </div> 
+                                        <!--<div class="fw-bold text-muted fs-6">3 mins </div>-->
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Description-->
+                                    <!--begin::Container-->
+                                    <div class="overlay mt-6">
+                                        <!--begin::Image-->
+                                        <!--<div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-350px"
+                                                style="background-image:url('{{activity.titleImage}}')">
+                                            </div>-->
+                                        <!--end::Image-->
+                                        <!--begin::Links-->
+                                        <div class="embed-responsive">
+                                            <!--<iframe id="videoPlayerFrame"  class="embed-responsive-item card-rounded h-600px w-100" [src]="titleVideo" allowfullscreen=""></iframe>-->
+                                            <!--<video #videoElement (loadedmetadata)="getVideoDuration()" class="embed-responsive-item card-rounded h-720px w-100" [src]="activity.titleVideo" controls></video>--> 
+                                            <!--<img [src]="activity.titleImage" class="embed-responsive-item card-rounded h-720px w-100" style="background-size: cover;" />-->
+                                        </div>
+                                        <div class="VideoPlayer">     
+                                            <div *ngIf="isVimeoError">
+                                                <img src="assets/common/images/vimeo_video_doesnot_exists.png"   alt="" srcset="">
+                                            </div>                                    
+                                        </div>
+                                        <!--end::Links-->
+                                    </div>
+                                    <!--end::Container-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Post content-->
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Layout-->
+                </div>
+                <!--end::Body-->
+            </div>
+            <!--end::Post card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+</div>

@@ -1,0 +1,721 @@
+/* You can add global styles to this file, and also import other style files */
+.margin-left-5 {
+    margin-left: 5px !important;
+}
+
+.margin-right-5 {
+    margin-right: 5px !important;
+}
+
+.margin-top-5 {
+    margin-top: 5px !important;
+}
+
+.margin-top-15 {
+    margin-top: 15px !important;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px !important;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px !important;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px !important;
+}
+
+.padding-left-5 {
+    padding-left: 5px !important;
+}
+
+.padding-right-5 {
+    padding-right: 5px !important;
+}
+
+.padding-top-5 {
+    padding-top: 5px !important;
+}
+
+.padding-bottom-5 {
+    padding-bottom: 5px !important;
+}
+
+.width-percent-5 {
+    width: 5%;
+}
+
+.width-percent-10 {
+    width: 10%;
+}
+
+.width-percent-15 {
+    width: 15%;
+}
+
+.width-percent-20 {
+    width: 20%;
+}
+
+.width-percent-30 {
+    width: 30%;
+}
+
+.width-percent-40 {
+    width: 40%;
+}
+
+.width-percent-50 {
+    width: 50%;
+}
+
+.width-percent-100 {
+    width: 100%;
+}
+
+/* Sweet alert */
+
+body.swal2-height-auto {
+    height: inherit !important;
+}
+
+.swal2-popup.swal2-toast {
+    padding: 10px 12px !important;
+    display: block !important;
+}
+
+.swal2-popup.swal2-toast .swal2-header,
+.swal2-popup.swal2-toast .swal2-title,
+.swal2-popup.swal2-toast .swal2-content {
+    text-align: left !important;
+    margin: 0 !important;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+    margin-bottom: 4px !important;
+}
+
+.swal2-icon.swal2-info::before,
+.swal2-icon.swal2-warning::before,
+.swal2-icon.swal2-success::before,
+.swal2-icon.swal2-error::before {
+    content: "";
+}
+
+@keyframes glowing {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.glowing {
+    animation: glowing 2s infinite;
+}
+
+.root-initial-loader .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(51, 51, 51, 0.8);
+    z-index: 99999 !important;
+    width: 100%;
+    height: 100%;
+}
+
+.root-initial-loader i {
+    position: absolute;
+    color: rgb(91, 167, 234);
+    z-index: 100000 !important;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.root-initial-loader .fa-spin-2x {
+    -webkit-animation: fa-spin 1s infinite linear;
+    animation: fa-spin 1s infinite linear;
+}
+
+ngx-spinner .loading-text {
+    font-weight: bold;
+    color: white;
+    font-size: 1.3em;
+}
+
+bs-days-calendar-view+bs-days-calendar-view {
+    margin-left: 10px;
+}
+
+bs-days-calendar-view {
+    display: inline-block;
+    border-radius: 4px 0 0 4px;
+}
+
+@media (max-width: 768px) {
+    .btn-md-icon {
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+
+html[data-theme=dark] {
+    --kt-text-muted: #9D9DA6;
+}
+
+[data-kt-app-sidebar-hoverable=true][data-kt-app-sidebar-minimize=on] .app-sidebar:not(.animating) .menuSearchBarInput {
+    opacity: 0;
+}
+
+[data-kt-app-sidebar-hoverable=true][data-kt-app-sidebar-minimize=on] .app-sidebar:hover:not(.animating) .menuSearchBarInput {
+    opacity: 1;
+}
+
+accordion.custom-accordion .panel-heading.card-header {
+    min-height: auto;
+    padding: 0;
+    border: none;
+    /* border-color: #f3f3f3; */
+}
+
+accordion.custom-accordion .panel-heading.card-header button {
+    position: relative;
+    flex-wrap: wrap;
+    text-align: left;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 20px !important;
+}
+
+accordion.custom-accordion .panel button img.arrow {
+    position: absolute;
+    right: 13px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 16px;
+    transition: all 0.3s ease;
+}
+
+accordion.custom-accordion .panel.panel-open button img.arrow {
+    transform: rotate(180deg);
+}
+
+accordion.custom-accordion .panel-heading.card-header button span.count {
+    position: absolute;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    background: rgb(89, 97, 112);
+    border-radius: 50px;
+    top: 24px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    z-index: 1;
+    color: #fff;
+}
+
+accordion.custom-accordion .panel-heading.card-header button .head {
+    font-size: 20px;
+    gap: 10px;
+}
+
+accordion.custom-accordion .panel-heading.card-header button .head .arr {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    min-width: 24px;
+    text-align: center;
+}
+
+accordion.custom-accordion .panel-heading.card-header button .head .arr i {
+    line-height: normal;
+    padding: 0;
+    font-size: 16px;
+}
+
+accordion.panel-group .panel.card.panel-default {
+    border-radius: 0;
+}
+
+accordion.custom-accordion .panel-heading.card-header button .subhead {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 10px 0 0;
+    font-size: 15px;
+}
+
+
+
+accordion.custom-accordion .panel-collapse .panel-body {
+    padding: 20px;
+    text-align: left;
+    border-top: 1px solid var(--kt-card-border-color);
+
+}
+
+
+
+accordion.custom-accordion .panel-collapse .panel-body>div {
+    border-radius: 8px;
+    margin: 0 0 20px;
+}
+
+accordion.custom-accordion .panel-collapse .panel-body>div .card-xl-stretch {
+
+    text-align: left;
+}
+
+accordion.custom-accordion .card-xl-stretch .content a {
+    font-size: 20px;
+}
+
+accordion.custom-accordion .card-xl-stretch .content {
+    padding: 20px 0;
+}
+
+accordion.custom-accordion .card-xl-stretch .content p {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+
+accordion.custom-accordion .card-xl-stretch .content span {
+    display: block;
+    font-size: 14px;
+    color: #929292;
+    margin: 0 0 2px;
+}
+
+accordion.custom-accordion .card-xl-stretch a.video-box {
+    border-radius: 8px;
+    overflow: hidden;
+    height: 140px;
+    background: #c4c4c4;
+    position: relative;
+}
+
+accordion.custom-accordion .card-xl-stretch a.video-box video {
+    height: 100%;
+    object-fit: cover;
+}
+
+accordion.custom-accordion .card-xl-stretch a.video-box::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.main-head {
+    border-bottom: 1px solid var(--kt-card-border-color);
+    padding: 20px 0;
+}
+
+.main-head .boxs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.main-head h4 {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.main-head ul {
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    display: flex;
+    gap: 0px;
+    position: relative;
+    justify-content: start;
+}
+
+
+
+.main-head ul li {
+    text-align: center;
+    width: 150px;
+    overflow: auto;
+}
+
+.main-head ul li span {
+    width: 35px;
+    height: 35px;
+    background: #596170;
+    border-radius: 50px;
+    font-size: 14px;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+
+.main-head.courses-tab .boxs ul::after {
+    top: 10%;
+    left: 10px;
+    right: 0;
+    width: 90%;
+}
+
+.main-head.courses-tab .boxs ul li {
+    width: 50px
+}
+
+.main-head.courses-tab .boxs ul {
+    margin: 0
+}
+
+.main-head ul::after {
+    width: auto;
+    height: 2px;
+    content: '';
+    background: #DBDDE1;
+    position: absolute;
+    bottom: 0;
+    top: -35px;
+    left: 58px;
+    right: 58px;
+    margin: auto;
+    z-index: 0;
+}
+
+.main-head.activity-display ul li {
+    width: auto;
+    margin: 0 5px;
+}
+
+.main-head.activity-display ul::after {
+    top: 0;
+    left: 5px;
+    right: 5px
+}
+
+.main-head .box,
+accordion.custom-accordion .panel-collapse .panel-body,
+accordion.custom-accordion .panel-title {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.main-head .box {
+    gap: 15px;
+}
+
+@media (max-width: 560px) {
+
+    .main-head .box,
+    accordion.custom-accordion .panel-collapse .panel-body,
+    accordion.custom-accordion .panel-title {
+        width: 100%;
+    }
+}
+
+.explore-section .card-head p {
+    font-size: 15px;
+}
+
+.explore-section .card-head button {
+    background: #E32652;
+    color: #fff;
+    padding: 10px 20px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.explore-section .card-head button img {
+    width: 12px;
+}
+
+accordion.custom-accordion .card-xl-stretch a.video-box span {
+    position: absolute;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.51);
+    min-width: 30px;
+    text-align: center;
+    padding: 3px;
+    border-radius: 0 0 8px 0;
+}
+
+
+
+changeprofilepicture image-cropper .ngx-ic-overlay {
+    outline: transparent solid 100vw !important;
+}
+
+changeprofilepicture div .modal-footer {
+    display: none;
+}
+
+.img-wrap {
+    width: 100%;
+    max-height: 280px;
+    height: 280px;
+    object-fit: cover;
+}
+
+.label--height {
+    max-height: 125px;
+}
+
+.display-label--height {
+    max-height: 200px;
+}
+
+.close-btn i {
+    font-size: 18px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    margin-top: 35px;
+    cursor: pointer;
+}
+
+.close-btn-new {
+    position: absolute;
+    right: -20px;
+    top: 0;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.right30 {
+    right: -30px;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-head ul li {
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .mb-sm-4 {
+        margin-bottom: 15px !important;
+    }
+
+    .main-head ul li {
+        width: 80px;
+    }
+}
+
+.p-fileupload-buttonbar span+p-button {
+    display: none;
+}
+
+/*search-bar*/
+.search i {
+    top: 30%;
+    right: 2%;
+    font-size: 20px;
+}
+
+.ellipss-one-line {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.white-inherit {
+    white-space: inherit !important;
+}
+
+
+/* **************************** */
+div#notYetEnrolled {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    /* border: 2px solid #615b5b; */
+    border-radius: 8px;
+    max-width: 100%;
+    width: 100%;
+    justify-content: center;
+    margin-top: 50px
+}
+
+.notYetEnrolled span {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.notYetEnrolled a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-size: small;
+    border-radius: 4px;
+}
+
+.notYetEnrolled i {
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .notYetEnrolled {
+        max-width: 100%;
+        margin-top: 0px;
+    }
+}
+
+
+
+
+div .progressBar .progress-outer {
+    border: 0px solid #201010;
+    width: 95%;
+    padding: 0%;
+    background-color: #d1d1d1;
+}
+
+div .progressBar .progress-outer .progress-inner {
+    font-size: small;
+}
+
+.progress-inner {
+    color: transparent;
+    background-color: #e6e64f !important;
+    min-width: 0% !important;
+}
+
+.progress-inner,
+.progress-inner .progress-outer {
+    height: 8px;
+    min-height: 8px !important;
+}
+
+.progressBar {
+    width: 500px;
+}
+
+.course-text {
+    padding-left: 48px;
+}
+
+.disabled-hover {
+    pointer-events: none;
+}
+
+.menu-item.activeCourses,
+.menu-item.completedCourses {
+    padding: 0.15rem 15px 0 0;
+}
+
+.enrollSectionText {
+    padding: 0.25rem 0.25rem 0.25rem 0 !important;
+}
+
+.enrollSectionDate {
+    padding: 1.25rem 1.25rem 1.25rem 0 !important;
+
+}
+
+
+/* Add your desired colors for the states */
+.main-head ul li.active .group1,
+.main-head ul li.active .group2,
+.main-head ul li.active .group3 {
+    background-color: #C5C5C5;
+    color: var(--kt-black);
+}
+
+.main-head ul li.complete .group1,
+.main-head ul li.complete .group2,
+.main-head ul li.complete .group3 {
+    background-color: var(--kt-primary);
+    color: var(--kt-black);
+}
+
+.main-head ul li.inactive .group1,
+.main-head ul li.inactive .group2,
+.main-head ul li.inactive .group3 {
+    background-color: #272727;
+    color: var(--kt-black);
+}
+
+.lessons-outer {
+    margin:0 -17px 0px -19px;
+    padding: 20px;
+}
+.btn-link{
+    color: var(--kt-primary); 
+    cursor: pointer;
+}
+.card.mycourse-outer{
+    border-radius: 25px;
+}
+.mycourse-outer .left-img img {
+    border-radius: 0.625rem 0 0 0.625rem;
+}
+.lessons-outer:empty {
+    display: none;
+}
+ :has(.course-inner:empty).lessons-outer {
+    display: none;
+}
+
+.enrollSectionText {
+    padding: 0.25rem 0.25rem 0.25rem 0 !important;
+}
+
+.enrollSectionDate {
+    padding: 1.25rem 1.25rem 1.25rem 0 !important;
+
+}
+
+.courses-wrap.card{
+    border-radius: 25px;
+}
+.courses-wrap .left-img img{
+    border-radius: 25px 0px 0px 25px;
+}

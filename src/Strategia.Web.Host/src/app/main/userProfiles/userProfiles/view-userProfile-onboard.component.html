@@ -1,0 +1,377 @@
+﻿<div [@routerTransition]>
+    <div [class]="containerClass">
+
+        <div class="card mt-10 bg-transparent border-0">
+            <div class="card-body p-0">
+                <!--begin::Details-->
+                <div class="row">
+                    <!--begin: Pic-->
+                    <div class="col-md-6 col-12">
+                        <div class="mt-12">
+                            <img class="w-100 mb-8" src="/assets/common/images/new-project.jpg" alt="image">
+                        </div>
+                    </div>
+                    <!--end::Pic-->
+                    <!--begin::Info-->
+                    <div class="col-md-6 col-12">
+                        <!--begin::Title-->
+                        <div class="mb-2">
+                            <!--begin::User-->
+                            <div class="d-flex flex-column">
+                                <!--begin::Name-->
+                                <div class=" mb-2">
+
+                                   <div class="main-head" style="margin-right: auto; border-bottom: 0;">
+                                        <div class="boxs">
+                                            <ul>
+                                                <li
+                                                    [ngClass]="{ 'active': progress.group1 === 'active', 'complete': progress.group1 === 'complete', 'inactive': progress.group1 === 'inactive' }">
+                                                    <span class="group1">
+                                                        <ng-container *ngIf="progress.group1 === 'complete'">
+                                                            <i class="fas fa-check fa-inverse fa-1x"></i>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="progress.group1 !== 'complete'">{{ l('1')
+                                                            }}</ng-container>
+
+                                                    </span>
+                                                    <p class="mt-2">{{ l('Personal Information') }}</p>
+                                                </li>
+                                                <li
+                                                    [ngClass]="{ 'active': progress.group2 === 'active', 'complete': progress.group2 === 'complete', 'inactive': progress.group2 === 'inactive' }">
+                                                    <span class="group2">
+                                                        <ng-container *ngIf="progress.group2 === 'complete'">
+                                                            <i class="fas fa-check fa-inverse fa-1x"></i>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="progress.group2 !== 'complete'">{{ l('2')
+                                                            }}</ng-container>
+
+                                                    </span>
+                                                    <p class="mt-2">{{ l('Current State') }}</p>
+                                                </li>
+                                                <li
+                                                    [ngClass]="{ 'active': progress.group3 === 'active', 'complete': progress.group3 === 'complete', 'inactive': progress.group3 === 'inactive' }">
+                                                    <span class="group3">
+                                                        <ng-container *ngIf="progress.group3 === 'complete'">
+                                                            <i class="fas fa-check fa-inverse fa-1x"></i>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="progress.group3 !== 'complete'">{{ l('3')
+                                                            }}</ng-container>
+
+                                                    </span>
+                                                    <p class="mt-2">{{ l('Career Plan') }}</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body" *ngIf="userProfile?.parsedResume != null">
+
+                                        <div class="mb-6">
+                                            <div *ngIf="stepId==2">
+                                                <div
+                                                    class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <h2 class="mb-4">{{ l('Personal Details') }}</h2>
+                                                    <!--<label class="form-label fs-5" for="UserProfile_ProfileName">{{ l('Enter your name') }}</label>-->
+                                                    <label for="municipality">{{ l('Name') }}</label>
+                                                    <input type="text" id="UserProfile_ProfileName"
+                                                        class="form-control mb-4"
+                                                        [(ngModel)]="userProfile.profileName"
+                                                        name="ProfileName" minlength="0" maxlength="128" />
+                                                    <!--<validation-messages [formCtrl]="UserProfile_ProfileName"></validation-messages>-->
+
+                                                    <label for="municipality">Municipality</label>
+                                                    <input type="text" id="municipality" class="form-control mb-4"
+                                                        [(ngModel)]="userProfile.parsedResume.contactInformation.location.municipality" />
+
+                                                    <label for="countryCode">Country Code</label>
+                                                    <input type="text" id="countryCode" class="form-control mb-4"
+                                                        [(ngModel)]="userProfile.parsedResume.contactInformation.location.countryCode" />
+
+                                                    <!-- <label for="email">Email Addresses</label>
+                                                    <ng-container *ngIf="userProfile?.parsedResume?.contactInformation?.emailAddresses && userProfile?.parsedResume?.contactInformation?.emailAddresses?.length > 0">
+                                                        <ng-container *ngFor="let email of userProfile?.parsedResume?.contactInformation?.emailAddresses; let i = index;">
+                                                            <input type="text" id="email-{{i}}" class="form-control mb-4" [(ngModel)]="userProfile.parsedResume.contactInformation.emailAddresses[i]" />
+                                                        </ng-container>
+                                                    </ng-container> -->
+
+                                                    <label for="email">Email Addresses</label>
+                                                    <ng-container
+                                                        *ngIf="userProfile?.parsedResume?.contactInformation?.emailAddresses && userProfile?.parsedResume?.contactInformation?.emailAddresses?.length > 0">
+                                                        <ng-container
+                                                            *ngFor="let email of userProfile?.parsedResume?.contactInformation?.emailAddresses; let i = index; trackBy: trackByFn">
+                                                           <div class="row">
+                                                            <div class="col-12 position-relative">
+                                                                <input type="text" id="email-{{i}}"
+                                                                class="form-control mb-4"
+                                                                [(ngModel)]="userProfile.parsedResume.contactInformation.emailAddresses[i]" />
+                                                                <button class="close-btn mt10 close-btn-new" (click)="removeEmailAddress($event,i)" value="i"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            
+                                                           </div> 
+                                                            
+                                                        </ng-container>
+                                                    </ng-container>
+
+
+                                                    <div class="mt-4">
+                                                        <a href="javascript:;" class="me-2 cursor-pointer"
+                                                            (click)="addNewEmailAddress();$event.stopPropagation();">
+                                                            <span class="fa-stack text-success">
+                                                                <i class="far fa-circle fa-stack-2x"></i>
+                                                                <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                                                            </span>
+                                                            {{ l('Add Email') }}
+                                                        </a>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="stepId==3">
+
+                                                <div
+                                                    class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <h2 class="mb-4">{{ l('Contact Information') }}</h2>
+
+                                                    <ng-container
+                                                        *ngIf="userProfile?.parsedResume?.contactInformation?.telephones && userProfile?.parsedResume?.contactInformation?.telephones?.length > 0">
+                                                        <ng-container
+                                                            *ngFor="let telephone of userProfile?.parsedResume?.contactInformation?.telephones; let i = index;">
+                                                            <div class="row mb-4">
+                                                                <!-- International Country Code -->
+                                                                <div class="col-12 col-sm-3  mb-sm-4">
+                                                                    <label for="countryCode-{{i}}">Country Code</label>
+                                                                    <input type="text" id="countryCode-{{i}}"
+                                                                        class="form-control"
+                                                                        [(ngModel)]="userProfile.parsedResume.contactInformation.telephones[i].internationalCountryCode" />
+                                                                </div>
+
+                                                                <!-- Area/City Code -->
+                                                                <div class="col-12 col-sm-3  mb-sm-4">
+                                                                    <label for="cityCode-{{i}}">City Code</label>
+                                                                    <input type="text" id="cityCode-{{i}}"
+                                                                        class="form-control"
+                                                                        [(ngModel)]="userProfile.parsedResume.contactInformation.telephones[i].areaCityCode" />
+                                                                </div>
+
+                                                                <!-- Subscriber Number -->
+                                                                <div class="col-11 col-sm-5   mb-sm-4">
+                                                                    <label for="subscriberNumber-{{i}}">Number</label>
+                                                                    <input type="text" id="subscriberNumber-{{i}}"
+                                                                        class="form-control"
+                                                                        [(ngModel)]="userProfile.parsedResume.contactInformation.telephones[i].subscriberNumber" />
+                                                                        
+                                                                </div>
+                                                                <div class="col-1"><button class="close-btn" (click)="removePhone($event,i)" value="i"><i class="fas fa-times"></i></button></div>
+                                                            </div>
+                                                        </ng-container>
+
+                                                    </ng-container>
+
+                                                    <a href="javascript:;" class="me-2 cursor-pointer"
+                                                        (click)="addNewPhone();$event.stopPropagation();">
+                                                        <span class="fa-stack text-success">
+                                                            <i class="far fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                        {{ l('Add Phone') }}
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div *ngIf="stepId==5">
+
+                                                <div class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <!-- <h2 class="mb-4">{{ l('Onboarding') }} - {{ l('Current Salary')}}</h2> -->
+                                                    <h2 class="mb-4">{{ l('Current Salary')}}</h2>
+
+
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-auto">
+                                                            <label for="desiredSalaryLow" class="form-label"> {{ l('From') }}</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text" id="basic-addon2">AUD</span>
+                                                                <input type="number" style="max-width:175px" id="currentSalaryBandLow" (ngModelChange)="onSalaryChange($event, 'currentSalaryBandLow')" class="form-control" [(ngModel)]="userProfile.currentSalaryBandLow" placeholder="Select current Salary Band (low)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <label for="desiredSalaryHigh" class="form-label">{{ l('To') }}</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text" id="basic-addon3">AUD</span>
+                                                                <input type="number" style="max-width:175px" id="currentSalaryBandHigh" (ngModelChange)="onSalaryChange($event, 'currentSalaryBandHigh')" class="form-control" [(ngModel)]="userProfile.currentSalaryBandHigh" placeholder="Select current Salary Band (high)">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div *ngIf="stepId==7">
+
+                                                <div class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <!-- <h2 class="mb-4">{{ l('Onboarding') }} - {{ l('Preferred Salary')}}</h2> -->
+                                                    <h2 class="mb-4">{{ l('Preferred Salary')}}</h2>
+
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-auto">
+                                                            <label for="preferredSalaryLow" class="form-label"> {{ l('From') }}</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text" id="basic-addon2">AUD</span>
+                                                                <input type="number" style="max-width:175px" id="preferredSalaryBandLow" (ngModelChange)="onSalaryChange($event, 'preferredSalaryBandLow')" class="form-control" [(ngModel)]="userProfile.preferredSalaryBandLow" placeholder="Select preferred Salary Band (low)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <label for="preferredSalaryHigh" class="form-label">{{ l('To') }}</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text" id="basic-addon3">AUD</span>
+                                                                <input type="number" style="max-width:175px" id="preferredSalaryBandHigh" (ngModelChange)="onSalaryChange($event, 'preferredSalaryBandHigh')" class="form-control" [(ngModel)]="userProfile.preferredSalaryBandHigh" placeholder="Select preferred Salary Band (high)">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div *ngIf="stepId==4">
+
+                                                <div
+                                                    class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <!-- <h2 class="mb-4">{{ l('Onboarding') }} - {{ l('Current Industries')}}</h2> -->
+                                                    <h2 class="mb-4">{{ l('Current Industries')}}</h2>
+
+
+                                                    <div>
+                                                        <p-dropdown (onChange)="onIndustrySelect($event)"
+                                                            [options]="industries" optionLabel="name" [filter]="true"
+                                                            filterBy="name" [showClear]="true"
+                                                            placeholder="{{ l('Select an Industry') }}"></p-dropdown>
+                                                    </div>
+
+                                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">Your
+                                                        Industries</div>
+                                                    <span (click)="removeSelectedIndustry(i);"
+                                                        *ngFor="let industry of selectedIndustries; let i = index;"
+                                                        class="badge badge-lg badge-pill badge-secondary  p-3 me-3 mt-3">{{industry.name}}
+                                                        <i class="fa fa-minus ms-2 fa-bold"></i> </span>
+
+                                                </div>
+
+                                            </div>
+
+                                            
+                                            <div *ngIf="stepId==6">
+
+                                                <div
+                                                    class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <!-- <h2 class="mb-4">{{ l('Onboarding') }} - {{ l('Preferred Industry')}}</h2> -->
+                                                    <h2 class="mb-4">{{ l('Preferred Industry')}}</h2>
+
+                                                    
+                                                    <!--<p>Please select one or more options</p>-->
+                                                    <!--<p-multiSelect [options]="industries"
+                                                                   [(ngModel)]="this.preferredIndustries"
+                                                                   defaultLabel="Select preferred Industries"
+                                                                   optionLabel="name" styleClass="small w-100"
+                                                                   display="chip">
+                                                    </p-multiSelect>-->
+
+
+                                                    <div>
+                                                        <p-dropdown (onChange)="onPreferredIndustrySelect($event)"
+                                                            [options]="industries" optionLabel="name" [filter]="true"
+                                                            filterBy="name" [showClear]="true"
+                                                            placeholder="{{ l('Select an Industry') }}"></p-dropdown>
+                                                    </div>
+
+                                                    <div class="text-hover-primary mt-6 fs-6 fw-bold me-1">{{ l('Your
+                                                        Preferred Industries') }}</div>
+                                                    <span (click)="removePreferredSelectedIndustry(i);"
+                                                        *ngFor="let industry of preferredIndustries; let i = index;"
+                                                        class="badge badge-lg badge-pill badge-secondary  p-3 me-3 mt-3">{{industry.name}}
+                                                        <i class="fa fa-minus ms-2 fa-bold"></i> </span>
+
+
+
+                                                </div>
+
+                                            </div>                                        
+                                            
+                                            <!-- <div *ngIf="stepId==8">
+                                                <div
+                                                    class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <h2 class="mb-4">{{ l('Verification page')}}</h2>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control mb-4" [(ngModel)]="verificationInputValue" (change)="onCompletion()"/>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <div *ngIf="stepId==1">
+
+                                                <div
+                                                    class="align-items-center text-gray-900 text-hover-primary me-5 mb-2">
+                                                    <h2 class="mb-4">{{ l('Add Your CV') }}</h2>
+
+                                                    <!--<label for="UserProfile_ProfileName">{{ l('Resume') }}</label>
+                                                     <label for="UserProfile_ProfileName">{{ l('or') }}</label> <label
+                                                        for="UserProfile_ProfileName">{{ l('CV') }}</label>
+                                                    <label for="UserProfile_ProfileName">{{ l('UploadResumeDescription')
+                                                        }}</label> -->
+                                                    <p-fileUpload class="custom-file-upload"
+                                                        id="DefaultFileUploadFileInput"
+                                                        name="DefaultFileUploadFileInput[]" accept=".doc,.docx,.pdf"
+                                                        maxFileSize="1000000" [auto]="false"
+                                                        (onSelect)="handleFileInput($event)">
+                                                        <ng-template pTemplate="content">
+                                                            <div *ngIf="uploadedFiles.length">
+                                                                {{ uploadedFiles[0].name }} - {{ uploadedFiles[0].size
+                                                                }} bytes
+                                                            </div>
+                                                        </ng-template>
+                                                    </p-fileUpload>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-3 onboard-btn">
+                                            <!-- Previous Button -->
+                                            <button type="button" class="btn btn-outline btn-outline-primary w-200px gap-3 d-flex align-items-center justify-content-center" (click)="goToPrevious()"
+                                                [disabled]="stepId === 1"><i class="fa fa-chevron-left"></i>
+                                                Previous</button>
+
+                                            <!-- Next Button -->
+                                            <button *ngIf="stepId !== 7" type="button" class="btn btn-primary w-200px gap-3 d-flex align-items-center justify-content-center" (click)="goToNext()"
+                                               >Next <i
+                                                    class="fa fa-chevron-right"></i></button>
+
+                                            <!-- Finshed Button -->
+                                            <button *ngIf="stepId === 7" type="button" class="btn btn-primary w-200px gap-3 " (click)="save()">Finished</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Name-->
+                            </div>
+                            <!--end::User-->
+                        </div>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Info-->
+                </div>
+                <!--end::Details-->
+            </div>
+        </div>
+
+
+    </div>
+    <!--end::Content-->
+</div>

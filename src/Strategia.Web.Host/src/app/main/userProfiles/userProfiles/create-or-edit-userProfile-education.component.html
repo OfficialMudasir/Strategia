@@ -1,0 +1,114 @@
+﻿<div [@routerTransition]>
+    <div class="d-flex flex-column flex-column-fluid">
+        <div [class]="containerClass">
+
+            <div class="card card-custom gutter-b  border-0">
+                <div class="modal-header align-items-baseline ps-0 pt-4 pb-2 mb-6">
+                    <h4 class="modal-title">
+                        <span *ngIf="edit">{{ l('EditEducation') }}</span>
+                        <span *ngIf="!edit">{{ l('CreateEducation') }}</span>
+                    </h4>
+                    <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+                </div>
+
+                <div *ngIf="userprofile" class="card-body p-0">
+
+                    <!--begin::Navs-->
+                    <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent mb-5 mb-xl-10 fs-5 fw-bold">
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a (click)="Up_tabId = 1" [class.active]="Up_tabId == 1" class="nav-link text-active-primary ms-0 me-10 py-5" href="javascript:;">
+                                Details
+                            </a>
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a (click)="Up_tabId = 2" [class.active]="Up_tabId == 2" class="nav-link text-active-primary ms-0 me-10 py-5" href="javascript:;">
+                                File Uploads
+                            </a>
+                        </li>
+                        <!--end::Nav item-->
+                    </ul>
+                    <!--begin::Navs-->
+                    <!--begin::Content-->
+
+                    <div *ngIf="Up_tabId==1">
+
+                        <div class="mb-3">
+                            <label for="institution" class="form-label text-dark fw-bold">Institution</label>
+                            <input type="text" id="institution" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.education.educationDetails[index].schoolName.normalized" placeholder="Enter institution name" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="qualification" class="form-label text-dark fw-bold">Course or Qualification</label>
+                            <input type="text" id="qualification" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.education.educationDetails[index].degree.type" placeholder="Enter course or qualification" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="finishedYear" class="form-label text-dark fw-bold">Finished</label>
+                            <select id="finishedYear" [ngModel]="education.endDate.date.year" (ngModelChange)="onEndYearChange($event)" class="form-select">
+                                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex flex-wrap">
+                                <span *ngFor="let major of education.majors; let i = index" class="badge badge badge-pill badge-success   me-3 mt-3 mb-3">
+                                    {{major}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label text-dark fw-bold">Description</label>
+                            <textarea id="description" rows="10" class="form-control" [(ngModel)]="userprofile.userProfile.parsedResume.education.educationDetails[index].text" placeholder="Enter description"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="Up_tabId==2">
+
+                        <div class="my-3">
+                            <!-- <label class="form-label" for="UserProfile_Resume">{{ l('Resume') }}</label>-->
+                            <!--<input type="file" (change)="handleFileInput($event)" />-->
+                            <!--<validation-messages [formCtrl]="UserProfile_Resume"></validation-messages>-->
+
+                            <p-fileUpload class="custom-file-upload"
+                                          id="DefaultFileUploadFileInput"
+                                          name="DefaultFileUploadFileInput[]"
+                                          accept=".doc,.docx,.pdf"
+                                          maxFileSize="1000000"
+                                          [auto]="false"
+                                          (onSelect)="handleFileInput($event)">
+                                <ng-template pTemplate="content">
+                                    <div *ngIf="uploadedFiles.length">
+                                        {{ uploadedFiles[0].name }} - {{ uploadedFiles[0].size }} bytes
+                                    </div>
+                                </ng-template>
+                            </p-fileUpload>
+
+                        </div>
+
+                    </div>
+
+           
+
+                    <!--end::Content-->
+
+                </div>
+
+                <!-- Card Footer with Save and Cancel Buttons -->
+                <div class="card-footer pe-0">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" (click)="close();$event.stopPropagation();">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="saving">Save</button>
+                    </div>
+                </div>
+                <!-- End of Card Footer -->
+
+            </div>
+
+        </div>
+    </div>
+</div>

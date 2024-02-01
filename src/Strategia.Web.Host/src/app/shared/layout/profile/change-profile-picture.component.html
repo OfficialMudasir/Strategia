@@ -1,0 +1,79 @@
+ 
+<div class="">
+    <form   #changeProfilePictureModalForm="ngForm" (ngSubmit)="save()">
+        <div class="modal-header mb-6">
+            <h2 class="modal-title">
+                <span>{{ 'ChangeProfilePicture' | localize }}</span>
+            </h2>
+        </div>
+        <div class="modal-body mb-6">
+            <div class="mb-5" *ngIf="canUseGravatar()">
+                <label class="form-check form-check-custom form-check-solid py-1">
+                    <input
+                        id="Profile_UseGravatarProfilePicture"
+                        type="checkbox"
+                        name="UseGravatarProfilePicture"
+                        [(ngModel)]="useGravatarProfilePicture"
+                        class="form-check-input"
+                    />
+                    <span class="form-check-label">
+                        {{ 'UseGravatarProfilePicture' | localize }}
+                    </span>
+                </label>
+            </div>
+            <div class="mb-5">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input
+                            type="file"
+                            id="uploadProfilePicture"
+                            (change)="fileChangeEvent($event)"
+                            [disabled]="useGravatarProfilePicture"
+                        />
+                        <label
+                            class="custom-file-label"
+                            #uploadProfilePictureInputLabel
+                            for="uploadProfilePicture"
+                        >
+                            {{ 'ChooseAFile' | localize }}
+                        </label>
+                    </div>
+                    <span class="form-text text-muted col-lg-12" [hidden]="useGravatarProfilePicture">
+                        {{ 'ProfilePicture_Change_Info' | localize: maxProfilPictureBytesUserFriendlyValue }}
+                    </span>
+                </div>
+            </div>
+            <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4"
+                [resizeToWidth]="128"
+                format="png"
+                (imageCropped)="imageCroppedFile($event)"
+                [hidden]="useGravatarProfilePicture"
+            ></image-cropper>
+        </div>
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-outline btn-outline-primary fw-bold"
+                (click)="close()"
+                [disabled]="saving"
+                hidden="true"
+            >
+                {{ 'Cancel' | localize }}
+            </button>
+            <button
+                type="submit"
+                class="btn btn-primary fw-bold"
+                [disabled]="!changeProfilePictureModalForm.form.valid || saving"
+                hidden="true"
+
+            >
+                <i class="fa fa-save"></i>
+                <span>{{ 'Save' | localize }}</span>
+            </button>
+        </div>
+    </form>
+</div>
+ 

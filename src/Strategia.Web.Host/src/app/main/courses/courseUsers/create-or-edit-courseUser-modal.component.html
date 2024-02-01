@@ -1,0 +1,221 @@
+﻿<div
+  bsModal
+  #createOrEditModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createOrEditModal"
+  aria-hidden="true"
+  [config]="{ backdrop: 'static' }"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form *ngIf="active" #courseUserForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="courseUser.id">{{ l('EditCourseUser') }}</span>
+            <span *ngIf="!courseUser.id">{{ l('CreateNewCourseUser') }}</span>
+          </h4>
+
+          <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+        </div>
+        <div class="modal-body">
+          <div class="my-3">
+            <label class="form-label" for="CourseName">{{ l('Course') }}</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="CourseName"
+                name="courseName"
+                [(ngModel)]="courseName"
+                type="text"
+                disabled
+              />
+              <button class="btn btn-primary blue" (click)="openSelectCourseModal()" type="button">
+                <i class="bi bi-search"></i>
+                {{ l('Pick') }}
+              </button>
+              <button class="btn btn-danger btn-icon" type="button" (click)="setCourseIdNull()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          </div>
+          <input class="form-control" name="courseUser.courseId" [(ngModel)]="courseUser.courseId" type="text" hidden />
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonName">{{ l('CourseLesson') }}</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="CourseLessonName"
+                name="courseLessonName"
+                [(ngModel)]="courseLessonName"
+                type="text"
+                disabled
+              />
+              <button class="btn btn-primary blue" (click)="openSelectCourseLessonModal()" type="button">
+                <i class="bi bi-search"></i>
+                {{ l('Pick') }}
+              </button>
+              <button class="btn btn-danger btn-icon" type="button" (click)="setCourseLessonIdNull()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          </div>
+          <input
+            class="form-control"
+            name="courseUser.courseLessonId"
+            [(ngModel)]="courseUser.courseLessonId"
+            type="text"
+            hidden
+          />
+
+          <div class="my-3">
+            <label class="form-label" for="CourseLessonActivityName">{{ l('CourseLessonActivity') }}</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="CourseLessonActivityName"
+                name="courseLessonActivityName"
+                [(ngModel)]="courseLessonActivityName"
+                type="text"
+                disabled
+              />
+              <button class="btn btn-primary blue" (click)="openSelectCourseLessonActivityModal()" type="button">
+                <i class="bi bi-search"></i>
+                {{ l('Pick') }}
+              </button>
+              <button class="btn btn-danger btn-icon" type="button" (click)="setCourseLessonActivityIdNull()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          </div>
+          <input
+            class="form-control"
+            name="courseUser.courseLessonActivityId"
+            [(ngModel)]="courseUser.courseLessonActivityId"
+            type="text"
+            hidden
+          />
+
+          <div class="my-3">
+            <label class="form-label" for="UserProfileProfileName">{{ l('UserProfile') }}</label>
+            <select name="courseUser.userProfileId" [(ngModel)]="courseUser.userProfileId" class="form-select">
+              <option value="">{{ l('SelectAUserProfile') }}</option>
+              <option *ngFor="let item of allUserProfiles" value="{{ item.id }}">{{ item.displayName }}</option>
+            </select>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseUser_CourseTotal">{{ l('CourseTotal') }}</label>
+            <input
+              type="number"
+              #CourseUser_CourseTotal="ngModel"
+              id="CourseUser_CourseTotal"
+              class="form-control"
+              [(ngModel)]="courseUser.courseTotal"
+              name="CourseTotal"
+            />
+            <validation-messages [formCtrl]="CourseUser_CourseTotal"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseUser_CourseCompletedTotal">{{ l('CourseCompletedTotal') }}</label>
+            <input
+              type="number"
+              #CourseUser_CourseCompletedTotal="ngModel"
+              id="CourseUser_CourseCompletedTotal"
+              class="form-control"
+              [(ngModel)]="courseUser.courseCompletedTotal"
+              name="CourseCompletedTotal"
+            />
+            <validation-messages [formCtrl]="CourseUser_CourseCompletedTotal"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseUser_CourseLessonTotal">{{ l('CourseLessonTotal') }}</label>
+            <input
+              type="number"
+              #CourseUser_CourseLessonTotal="ngModel"
+              id="CourseUser_CourseLessonTotal"
+              class="form-control"
+              [(ngModel)]="courseUser.courseLessonTotal"
+              name="CourseLessonTotal"
+            />
+            <validation-messages [formCtrl]="CourseUser_CourseLessonTotal"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseUser_CourseLessonCompletedTotal">
+              {{ l('CourseLessonCompletedTotal') }}
+            </label>
+            <input
+              type="number"
+              #CourseUser_CourseLessonCompletedTotal="ngModel"
+              id="CourseUser_CourseLessonCompletedTotal"
+              class="form-control"
+              [(ngModel)]="courseUser.courseLessonCompletedTotal"
+              name="CourseLessonCompletedTotal"
+            />
+            <validation-messages [formCtrl]="CourseUser_CourseLessonCompletedTotal"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseUser_CourseLessonActivityTotal">
+              {{ l('CourseLessonActivityTotal') }}
+            </label>
+            <input
+              type="number"
+              #CourseUser_CourseLessonActivityTotal="ngModel"
+              id="CourseUser_CourseLessonActivityTotal"
+              class="form-control"
+              [(ngModel)]="courseUser.courseLessonActivityTotal"
+              name="CourseLessonActivityTotal"
+            />
+            <validation-messages [formCtrl]="CourseUser_CourseLessonActivityTotal"></validation-messages>
+          </div>
+
+          <div class="my-3">
+            <label class="form-label" for="CourseUser_CourseLessonActivityCompletedTotal">
+              {{ l('CourseLessonActivityCompletedTotal') }}
+            </label>
+            <input
+              type="number"
+              #CourseUser_CourseLessonActivityCompletedTotal="ngModel"
+              id="CourseUser_CourseLessonActivityCompletedTotal"
+              class="form-control"
+              [(ngModel)]="courseUser.courseLessonActivityCompletedTotal"
+              name="CourseLessonActivityCompletedTotal"
+            />
+            <validation-messages [formCtrl]="CourseUser_CourseLessonActivityCompletedTotal"></validation-messages>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-outline btn-outline-primary" (click)="close()">{{ l('Cancel') }}</button>
+          <button
+            type="submit"
+            class="btn btn-primary blue"
+            [disabled]="!courseUserForm.form.valid"
+            [buttonBusy]="saving"
+            [busyText]="l('SavingWithThreeDot')"
+          >
+            <i class="fa fa-save"></i>
+            <span>{{ l('Save') }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <courseUserCourseLookupTableModal
+    #courseUserCourseLookupTableModal
+    (modalSave)="getNewCourseId()"
+  ></courseUserCourseLookupTableModal>
+  <courseUserCourseLessonLookupTableModal
+    #courseUserCourseLessonLookupTableModal
+    (modalSave)="getNewCourseLessonId()"
+  ></courseUserCourseLessonLookupTableModal>
+  <courseUserCourseLessonActivityLookupTableModal
+    #courseUserCourseLessonActivityLookupTableModal
+    (modalSave)="getNewCourseLessonActivityId()"
+  ></courseUserCourseLessonActivityLookupTableModal>
+</div>

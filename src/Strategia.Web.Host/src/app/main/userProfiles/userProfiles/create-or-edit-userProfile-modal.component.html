@@ -1,0 +1,189 @@
+﻿<div
+  bsModal
+  #createOrEditModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createOrEditModal"
+  aria-hidden="true"
+  [config]="{ backdrop: 'static' }"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form *ngIf="active" #userProfileForm="ngForm" novalidate   autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="userProfile.id">{{ l('Your Profile') }}</span>
+            <span *ngIf="!userProfile.id">{{ l('Your Profile') }}</span>
+          </h4>
+
+          <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+        </div>
+        <div class="modal-body">
+
+            <div *ngIf="stepId==1">
+
+                <div class="my-3">
+                    <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('Enter your name') }}</label>
+                    <p>Provide your name so we can add it to your account</p>
+                    <input type="text"
+                           #UserProfile_ProfileName="ngModel"
+                           id="UserProfile_ProfileName"
+                           class="form-control"
+                           [(ngModel)]="userProfile.profileName"
+                           name="ProfileName"
+                           minlength="0"
+                           maxlength="128" />
+                    <validation-messages [formCtrl]="UserProfile_ProfileName"></validation-messages>
+                </div>
+
+            </div>
+
+            <div *ngIf="stepId==2">
+
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('What is your location?') }}</label>
+                <p>Start typing the name of your country</p>
+
+                <!--<p-multiSelect [options]="countries"
+                       [(ngModel)]="this.selectedLocations"
+                       defaultLabel="Select current Location" class="w-100 small"
+                       (onChange)="onMultiSelectChange($event)"
+                       optionLabel="name" display="chip">
+        </p-multiSelect>-->
+
+
+                <p-listbox [options]="countries" [(ngModel)]="this.preferredlocation" optionLabel="name" [filter]="true" [style]="{ width: '20em', 'max-height': '200px', 'overflow-y': 'auto' }"></p-listbox>
+
+            </div>
+
+            <div *ngIf="stepId==3">
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('What is your industry?') }}</label>
+                <p>Please select one or more options</p>
+
+                <p-multiSelect [options]="industries"
+                               [(ngModel)]="this.selectedIndustries"
+                               defaultLabel="Select current Industries"
+                               optionLabel="name" styleClass="small"
+                               display="chip">
+                </p-multiSelect>
+
+            </div>
+
+            <div *ngIf="stepId==4">
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('Current salary banding') }}</label>
+                <p>Type in or adjust an amount in AUD</p>
+
+                <span class="input-group mb-3 mw-200px me-2" title="Preferred Salary">
+                    <span class="input-group-prepend  ">
+                        <span class="input-group-text custom-input-group-text" id="basic-addon1">
+                            AUD
+                        </span>
+                    </span>
+                    <input type="number" (ngModelChange)="onSalaryChange($event)" class="form-control custom-form-control" [(ngModel)]="this.userProfile.currentSalaryBandLow"  >
+                </span>
+
+            </div>
+
+            <div *ngIf="stepId==5">
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('Future salary expectations') }}</label>
+                <p>Type in or adjust an amount in AUD</p>
+
+                <span class="input-group   mb-3 mw-200px me-2" title="Preferred Salary">
+                    <span class="input-group-prepend custom-prepend">
+                        <span class="input-group-text custom-input-group-text" id="basic-addon1">
+                            AUD
+                        </span>
+                    </span>
+                    <input type="number" (ngModelChange)="onSalaryChange($event)" class="form-control custom-form-control" [(ngModel)]="this.userProfile.preferredSalaryBandLow"  >
+                </span>
+            </div>
+
+            <div *ngIf="stepId==6">
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('Prefered next industry?') }}</label>
+                <p>Please select one or more options</p>
+
+                <p-multiSelect [options]="industries"
+                               [(ngModel)]="this.preferredIndustries"
+                               defaultLabel="Select preferred Industries"
+                               optionLabel="name" styleClass="small"
+                               display="chip">
+                </p-multiSelect>
+            </div>
+
+            <div *ngIf="stepId==7">
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('Your LinkedIn Profile') }}</label>
+                <p>Paste your profile link</p>
+
+                <input class="form-control" />
+                <label class="form-check form-check-custom form-check-solid py-1"><input id="EditUser_IsActive" type="checkbox" name="IsActive" class="form-check-input"><span class="form-check-label"> I agree to share my professional data </span></label>
+            </div>
+
+            <div *ngIf="stepId==8">
+                <label class="form-label fs-3" for="UserProfile_ProfileName">{{ l('Enter your phone number') }}</label>
+                <!--<p>Paste your profile link</p>-->
+ 
+
+                <span class="input-group   mb-3 mw-300px me-2" title="Preferred Salary">
+                    <span class="input-group-prepend">
+                        <span class="input-group-text " id="basic-addon1">
+                            Phone
+                        </span>
+                    </span>
+                    <!-- Import the TextMaskModule in your component as well -->
+                    <input type="text"
+                           class="form-control custom-form-control"
+                  
+                           [textMask]="{mask: ['(999) 999-9999']}"
+                           placeholder="Enter phone number" />
+                </span>
+
+            </div>
+
+            <div *ngIf="stepId==9">
+
+                <label class="form-label" for="UserProfile_Resume">{{ l('Upload your Resume') }}</label>
+                <p-fileUpload class="custom-file-upload"
+                              id="DefaultFileUploadFileInput"
+                              name="DefaultFileUploadFileInput[]"
+                              accept=".doc,.docx,.pdf"
+                              maxFileSize="1000000"
+                              [auto]="false"
+                              (onSelect)="handleFileInput($event)">
+                    <ng-template pTemplate="content">
+                        <div *ngIf="uploadedFiles.length">
+                            {{ uploadedFiles[0].name }} - {{ uploadedFiles[0].size }} bytes
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+
+            <!-- Previous Button -->
+            <button type="button" class="btn btn-primary" (click)="goToPrevious()" [disabled]="stepId === 1"><i class="fa fa-chevron-left"></i> Previous</button>
+
+            <!-- Next Button -->
+            <button type="button"  class="btn btn-primary" (click)="goToNext()" [disabled]="stepId === 9">Next <i class="fa fa-chevron-right"></i></button>
+
+
+            <!--<button [disabled]="saving" type="button" class="btn btn-outline btn-outline-primary" (click)="close()">{{ l('Cancel') }}</button>-->
+            <button type="button"
+                    (click)="save();"
+                    class="btn btn-primary blue"
+                    [disabled]="!userProfileForm.form.valid"
+                    [buttonBusy]="saving"
+                    [busyText]="l('SavingWithThreeDot')">
+                <i class="fa fa-save"></i>
+                <span>{{ l('Save') }}</span>
+            </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <userProfileUserLookupTableModal
+    #userProfileUserLookupTableModal
+    (modalSave)="getNewUserId()"
+  ></userProfileUserLookupTableModal>
+</div>
